@@ -1,0 +1,9 @@
+{
+  "eslint.enable": true,
+  "eslint.format.enable": true,
+  "eslint.validate": ["typescript", "html"],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.formatOnSave": true
+}
