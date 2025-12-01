@@ -2,7 +2,7 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
-    "packageManager": "npm",
+    "packageManager": "bun",
     "analytics": "b105e676-3f10-4357-b48b-d712b34c8887",
     "schematicCollections": ["angular-eslint"]
   },
@@ -28,7 +28,8 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "public/assets",
+                "output": "assets"
               }
             ],
             "styles": ["src/styles.scss"]
