@@ -11,9 +11,8 @@ import { LucideAngularModule, Sun, Moon } from 'lucide-angular';
     <button
       (click)="themeService.toggleTheme()"
       class="
-        flex items-center justify-center p-2 rounded-full transition-all duration-300
+        size-6 flex items-center justify-center p-2 rounded-full transition-all duration-300
         bg-[--bg-secondary] hover:opacity-80
-        border border-[--border-color]
         "
       [attr.aria-label]="'Переключить тему'"
     >
