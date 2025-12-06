@@ -1,0 +1,59 @@
+@reference "../../../../styles.scss";
+:host {
+  // Убедитесь, что сам хост ведет себя как элемент с дисплеем
+  // (Это обязательно, если вы не стилизуете внутренний элемент)
+  display: inline-flex;
+}
+
+// 1. Базовый класс кнопки
+// ЗАМЕНА: .ui-btn --> :host(.ui-btn)
+:host(.ui-btn) {
+  // 1. Геометрия и Позиционирование (Tailwind mix)
+  @apply inline-flex items-center justify-center gap-2 relative overflow-hidden top-2;
+
+  // 2. Типографика
+  @apply font-medium tracking-wide;
+
+  // 3. Бордеры и переходы
+  @apply border border-transparent rounded-lg;
+  @apply transition-all duration-200 ease-out;
+
+  // 4. Интерактивность
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+
+  // Хак для ring-offset
+  @apply ring-offset-[--bg-primary];
+
+  // --- MODERN TOUCH (Минимализм) ---
+
+  // Эффект "нажатия" (нужно использовать & для ссылки на хост)
+  &:active:not(:disabled) {
+    transform: scale(0.96);
+  }
+
+  // Disabled состояние
+  &:disabled {
+    @apply opacity-50 cursor-not-allowed grayscale-[0.5];
+    transform: none;
+  }
+}
+
+// 2. Размеры
+// ЗАМЕНА: .size-small --> :host(.size-small)
+:host(.size-small) {
+  @apply px-[8.75px] py-[5.25px] text-xs;
+}
+
+:host(.size-medium) {
+  @apply px-[10.5px] py-[7px] text-sm;
+}
+
+:host(.size-large) {
+  @apply px-[12.25px] py-[8.75px] text-base;
+}
+
+// 3. Полное скругление
+// ЗАМЕНА: .is-rounded --> :host(.is-rounded)
+:host(.is-rounded) {
+  @apply rounded-full;
+}

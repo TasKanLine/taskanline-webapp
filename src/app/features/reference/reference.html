@@ -7,13 +7,31 @@
     <h1 class="text-3xl font-bold font-serif mb-2">UI Kit / Design System</h1>
     <p class="text-[--text-secondary]">Обзор базовых компонентов системы</p>
   </div>
-  <section class="space-y-6">
-    <div class="space-y-1 grid grid-cols-1 gap-y-6">
-      <h2 class="text-4xl font-bold flex items-center">
-        <lucide-icon name="pointer" [size]="32"></lucide-icon> Buttons
-      </h2>
-      <h3 class="text-2-xl font-semibold text-[--text-secondary] uppercase tracking-wider">Variants</h3>
-      <div class="flex flex-wrap gap-4 items-center p-6 border border-[--border-color] rounded-lg border-dashed"></div>
+
+  <section class="space-y-6 grid grid-cols-1 gap-y-6">
+    <h2 class="text-2xl font-bold flex items-center">Button</h2>
+
+    <div class="space-y-2">
+      <h3 class="text-sm uppercase tracking-wider">Severity</h3>
+      <div class="flex flex-wrap items-center gap-4">
+        <button appButton severity="primary">Primary</button>
+        <button appButton severity="secondary">Secondary</button>
+        <button appButton severity="success">Success</button>
+        <button appButton severity="info">Info</button>
+        <button appButton severity="warning">Warning</button>
+        <button appButton severity="help">Help</button>
+        <button appButton severity="danger">Danger</button>
+        <button appButton severity="contrast">Contrast</button>
+      </div>
+    </div>
+
+    <div class="space-y-2">
+      <h3 class="text-sm uppercase tracking-wider">Sizes</h3>
+      <div class="flex flex-wrap items-center gap-4">
+        <button appButton severity="success" size="large">Large Round</button>
+        <button appButton severity="secondary" size="medium">Normal Round</button>
+        <button appButton severity="primary" size="small">Small Round</button>
+      </div>
     </div>
   </section>
 </div>
