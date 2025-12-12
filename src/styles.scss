@@ -24,6 +24,125 @@ h5 {
   font-weight: 500;
 }
 
+@layer utilities {
+  .hover-gradient-wave {
+    position: relative;
+    overflow: hidden;
+  }
+  .hover-gradient-wave::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 150%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: transform 0.6s ease;
+  }
+  .hover-gradient-wave:hover::after {
+    transform: translateX(200%);
+  }
+
+  .hover-gradient-surface-sweep {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hover-gradient-surface-sweep::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.25) 35%,
+      rgba(255, 255, 255, 0.5) 50%,
+      rgba(255, 255, 255, 0.25) 65%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: translateX(-150%);
+    transition: transform 0.65s ease;
+    pointer-events: none;
+  }
+
+  .hover-gradient-surface-sweep:hover::after {
+    transform: translateX(150%);
+  }
+
+  .hover-gradient-soft-blend {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hover-gradient-soft-blend::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.18) 45%,
+      rgba(255, 255, 255, 0.33) 50%,
+      rgba(255, 255, 255, 0.18) 55%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: translateX(-160%);
+    transition: transform 0.7s ease;
+  }
+
+  .hover-gradient-soft-blend:hover::after {
+    transform: translateX(160%);
+  }
+
+  .hover-gradient-flare {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hover-gradient-flare::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      100deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.2) 35%,
+      rgba(255, 255, 255, 0.45) 50%,
+      rgba(255, 255, 255, 0.2) 65%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: translateX(-150%);
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .hover-gradient-flare:hover::after {
+    transform: translateX(150%);
+  }
+
+  .hover-gradient-glide {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hover-gradient-glide::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      115deg,
+      rgba(255, 255, 255, 0) 15%,
+      rgba(255, 255, 255, 0.22) 50%,
+      rgba(255, 255, 255, 0) 85%
+    );
+    transform: translateX(-130%) skewX(-6deg);
+    transition: transform 0.55s ease;
+  }
+
+  .hover-gradient-glide:hover::after {
+    transform: translateX(130%) skewX(-6deg);
+  }
+}
+
 /**
   Нормализация блочной модели
  */
