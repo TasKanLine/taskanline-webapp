@@ -16,21 +16,13 @@ import { LucideAngularModule, Sun, Moon } from 'lucide-angular';
         "
       [attr.aria-label]="'Переключить тему'"
     >
-      <lucide-icon
-        *ngIf="themeService.currentTheme() === 'light'"
-        [name]="SunIcon"
-        [size]="20"
-        strokeWidth="2"
-        class="text-[#1b1b1f]"
-      ></lucide-icon>
+      @if (themeService.currentTheme() === 'light') {
+        <lucide-icon [name]="SunIcon" [size]="20" strokeWidth="2" class="text-[#1b1b1f]"></lucide-icon>
+      }
 
-      <lucide-icon
-        *ngIf="themeService.currentTheme() === 'dark'"
-        [name]="MoonIcon"
-        [size]="20"
-        strokeWidth="2"
-        class="text-[#faf3e1]"
-      ></lucide-icon>
+      @if (themeService.currentTheme() === 'dark') {
+        <lucide-icon [name]="MoonIcon" [size]="20" strokeWidth="2" class="text-[#faf3e1]"></lucide-icon>
+      }
     </button>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,

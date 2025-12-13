@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, input, computed, ChangeDetectionStrategy, ContentChild } from '@angular/core';
+import { Component, input, computed, ChangeDetectionStrategy } from '@angular/core';
 import { LucideAngularModule, LucideIconData } from 'lucide-angular';
 import { ButtonSeverity, ButtonSize, ButtonVariant, ButtonIconPos } from './button.types';
 import { BUTTON_BASE_CLASSES, SOLID_COLORS, OUTLINED_COLORS, TEXT_COLORS, SIZES } from './button.styles';
@@ -9,21 +9,15 @@ import { BUTTON_BASE_CLASSES, SOLID_COLORS, OUTLINED_COLORS, TEXT_COLORS, SIZES 
   standalone: true,
   imports: [CommonModule, LucideAngularModule],
   template: `
-    <lucide-icon
-      *ngIf="icon() && iconPos() === 'left'"
-      [img]="icon()!"
-      [class]="iconClass()"
-      [strokeWidth]="2.5"
-    ></lucide-icon>
+    @if (icon() && iconPos() === 'left') {
+      <lucide-icon [img]="icon()!" [class]="iconClass()" [strokeWidth]="2.5"></lucide-icon>
+    }
 
     <ng-content></ng-content>
 
-    <lucide-icon
-      *ngIf="icon() && iconPos() === 'right'"
-      [img]="icon()!"
-      [class]="iconClass()"
-      [strokeWidth]="2.5"
-    ></lucide-icon>
+    @if (icon() && iconPos() === 'right') {
+      <lucide-icon [img]="icon()!" [class]="iconClass()" [strokeWidth]="2.5"></lucide-icon>
+    }
   `,
   styleUrls: ['./button.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -69,7 +63,9 @@ export class Button {
         colorClass = SOLID_COLORS[currentSeverity];
         break;
     }
-    if (!colorClass) colorClass = SOLID_COLORS['primary'];
+    if (!colorClass) {
+      colorClass = SOLID_COLORS['primary'];
+    }
 
     return `${base} ${colorClass} ${sizeClass} ${roundClass} ${iconOnlyClass}`;
   });

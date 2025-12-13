@@ -92,22 +92,71 @@
     <div class="space-y-2">
       <h3 class="text-sm uppercase tracking-wider text-[--text-secondary]">Icon Only</h3>
       <div class="flex flex-wrap items-center gap-4 mb-6">
-        <button appButton severity="primary" [icon]="Icons.Check" [iconOnly]="true"></button>
-        <button appButton severity="secondary" [icon]="Icons.Bookmark" [iconOnly]="true"></button>
-        <button appButton severity="success" [icon]="Icons.Search" [iconOnly]="true"></button>
-        <button appButton severity="info" [icon]="Icons.User" [iconOnly]="true"></button>
-        <button appButton severity="warning" [icon]="Icons.Bell" [iconOnly]="true"></button>
-        <button appButton severity="help" [icon]="Icons.Heart" [iconOnly]="true"></button>
-        <button appButton severity="danger" [icon]="Icons.X" [iconOnly]="true"></button>
+        <button appButton severity="primary" [icon]="Icons.Check" [iconOnly]="true" aria-label="Check"></button>
+        <button appButton severity="secondary" [icon]="Icons.Bookmark" [iconOnly]="true" aria-label="Bookmark"></button>
+        <button appButton severity="success" [icon]="Icons.Search" [iconOnly]="true" aria-label="Search"></button>
+        <button appButton severity="info" [icon]="Icons.User" [iconOnly]="true" aria-label="User"></button>
+        <button appButton severity="warning" [icon]="Icons.Bell" [iconOnly]="true" aria-label="Bell"></button>
+        <button appButton severity="help" [icon]="Icons.Heart" [iconOnly]="true" aria-label="Heart"></button>
+        <button appButton severity="danger" [icon]="Icons.X" [iconOnly]="true" aria-label="Close"></button>
       </div>
       <div class="flex flex-wrap items-center gap-4 mb-6">
-        <button appButton severity="primary" [icon]="Icons.Check" [iconOnly]="true" [rounded]="true"></button>
-        <button appButton severity="secondary" [icon]="Icons.Bookmark" [iconOnly]="true" [rounded]="true"></button>
-        <button appButton severity="success" [icon]="Icons.Search" [iconOnly]="true" [rounded]="true"></button>
-        <button appButton severity="info" [icon]="Icons.User" [iconOnly]="true" [rounded]="true"></button>
-        <button appButton severity="warning" [icon]="Icons.Bell" [iconOnly]="true" [rounded]="true"></button>
-        <button appButton severity="help" [icon]="Icons.Heart" [iconOnly]="true" [rounded]="true"></button>
-        <button appButton severity="danger" [icon]="Icons.X" [iconOnly]="true" [rounded]="true"></button>
+        <button
+          appButton
+          severity="primary"
+          [icon]="Icons.Check"
+          [iconOnly]="true"
+          [rounded]="true"
+          aria-label="Check"
+        ></button>
+        <button
+          appButton
+          severity="secondary"
+          [icon]="Icons.Bookmark"
+          [iconOnly]="true"
+          [rounded]="true"
+          aria-label="Bookmark"
+        ></button>
+        <button
+          appButton
+          severity="success"
+          [icon]="Icons.Search"
+          [iconOnly]="true"
+          [rounded]="true"
+          aria-label="Search"
+        ></button>
+        <button
+          appButton
+          severity="info"
+          [icon]="Icons.User"
+          [iconOnly]="true"
+          [rounded]="true"
+          aria-label="User"
+        ></button>
+        <button
+          appButton
+          severity="warning"
+          [icon]="Icons.Bell"
+          [iconOnly]="true"
+          [rounded]="true"
+          aria-label="Bell"
+        ></button>
+        <button
+          appButton
+          severity="help"
+          [icon]="Icons.Heart"
+          [iconOnly]="true"
+          [rounded]="true"
+          aria-label="Heart"
+        ></button>
+        <button
+          appButton
+          severity="danger"
+          [icon]="Icons.X"
+          [iconOnly]="true"
+          [rounded]="true"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="flex flex-wrap items-center gap-4 mb-6">
         <button
@@ -117,6 +166,7 @@
           [iconOnly]="true"
           [rounded]="true"
           variant="outlined"
+          aria-label="Check"
         ></button>
         <button
           appButton
@@ -125,6 +175,7 @@
           [iconOnly]="true"
           [rounded]="true"
           variant="outlined"
+          aria-label="Bookmark"
         ></button>
         <button
           appButton
@@ -133,6 +184,7 @@
           [iconOnly]="true"
           [rounded]="true"
           variant="outlined"
+          aria-label="Search"
         ></button>
         <button
           appButton
@@ -141,6 +193,7 @@
           [iconOnly]="true"
           [rounded]="true"
           variant="outlined"
+          aria-label="User"
         ></button>
         <button
           appButton
@@ -149,6 +202,7 @@
           [iconOnly]="true"
           [rounded]="true"
           variant="outlined"
+          aria-label="Bell"
         ></button>
         <button
           appButton
@@ -157,6 +211,7 @@
           [iconOnly]="true"
           [rounded]="true"
           variant="outlined"
+          aria-label="Heart"
         ></button>
         <button
           appButton
@@ -165,6 +220,7 @@
           [iconOnly]="true"
           [rounded]="true"
           variant="outlined"
+          aria-label="Close"
         ></button>
       </div>
       <div class="flex flex-wrap items-center gap-4">
@@ -175,6 +231,7 @@
           [iconOnly]="true"
           [rounded]="true"
           variant="text"
+          aria-label="Check"
         ></button>
         <button
           appButton
@@ -183,6 +240,7 @@
           [iconOnly]="true"
           [rounded]="true"
           variant="text"
+          aria-label="Bookmark"
         ></button>
         <button
           appButton
@@ -191,6 +249,7 @@
           [iconOnly]="true"
           [rounded]="true"
           variant="text"
+          aria-label="Search"
         ></button>
         <button
           appButton
@@ -199,6 +258,7 @@
           [iconOnly]="true"
           [rounded]="true"
           variant="text"
+          aria-label="User"
         ></button>
         <button
           appButton
@@ -207,6 +267,7 @@
           [iconOnly]="true"
           [rounded]="true"
           variant="text"
+          aria-label="Bell"
         ></button>
         <button
           appButton
@@ -215,17 +276,33 @@
           [iconOnly]="true"
           [rounded]="true"
           variant="text"
+          aria-label="Heart"
         ></button>
-        <button appButton severity="danger" [icon]="Icons.X" [iconOnly]="true" [rounded]="true" variant="text"></button>
+        <button
+          appButton
+          severity="danger"
+          [icon]="Icons.X"
+          [iconOnly]="true"
+          [rounded]="true"
+          variant="text"
+          aria-label="Close"
+        ></button>
       </div>
     </div>
 
     <div class="space-y-2">
       <h3 class="text-sm uppercase tracking-wider text-[--text-secondary]">Icon Examples</h3>
       <div class="flex flex-wrap items-center gap-4">
-        <button appButton severity="primary" [icon]="Icons.Search" [iconOnly]="true"></button>
+        <button appButton severity="primary" [icon]="Icons.Search" [iconOnly]="true" aria-label="Search"></button>
 
-        <button appButton severity="secondary" [rounded]="true" [icon]="Icons.Search" [iconOnly]="true"></button>
+        <button
+          appButton
+          severity="secondary"
+          [rounded]="true"
+          [icon]="Icons.Search"
+          [iconOnly]="true"
+          aria-label="Search"
+        ></button>
 
         <button
           appButton
@@ -234,9 +311,17 @@
           [rounded]="true"
           [icon]="Icons.Trash2"
           [iconOnly]="true"
+          aria-label="Delete"
         ></button>
 
-        <button appButton severity="contrast" size="small" [icon]="Icons.Pointer" [iconOnly]="true"></button>
+        <button
+          appButton
+          severity="contrast"
+          size="small"
+          [icon]="Icons.Pointer"
+          [iconOnly]="true"
+          aria-label="Pointer"
+        ></button>
         <button
           appButton
           severity="contrast"
@@ -244,6 +329,7 @@
           [rounded]="true"
           [icon]="Icons.Pointer"
           [iconOnly]="true"
+          aria-label="Pointer"
         ></button>
       </div>
     </div>
