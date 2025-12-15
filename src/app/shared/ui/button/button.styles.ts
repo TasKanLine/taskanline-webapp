@@ -2,13 +2,13 @@ export const BUTTON_BASE_CLASSES = 'ui-btn';
 
 export const SOLID_COLORS: Record<string, string> = {
   primary: 'text-black bg-white border-transparent focus-visible:ring-blue-500',
-  secondary: 'text-white bg-zinc-800 border-transparent shadow-sm focus-visible:ring-gray-200',
+  secondary: 'text-white bg-zinc-800 border-transparent focus-visible:ring-gray-200',
   success: 'text-black bg-emerald-500 border-transparent focus-visible:ring-emerald-500',
   info: 'text-black bg-sky-400 border-transparent ui-btn hover-gradient-glide',
   warning: 'text-black bg-amber-500 border-transparent focus-visible:ring-amber-500',
   help: 'text-black bg-violet-400 border-transparent',
   danger: 'text-black bg-rose-500 border-transparent focus-visible:ring-rose-500 ui-btn hover-gradient-wave',
-  contrast: 'text-black bg-white border-transparent shadow-lg',
+  contrast: 'text-black bg-white border-transparent',
 };
 export const OUTLINED_COLORS: Record<string, string> = {
   primary: 'bg-transparent border-white text-white hover:bg-black/10',

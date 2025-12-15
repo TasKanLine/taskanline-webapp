@@ -1,21 +1,25 @@
 @reference "../../../../styles.scss";
 :host {
   display: inline-flex;
+  vertical-align: middle;
 }
 
 :host(.ui-btn) {
-  @apply inline-flex items-center justify-center gap-2 relative overflow-hidden top-2;
+  @apply inline-flex items-center justify-center gap-2 relative overflow-hidden;
   @apply font-medium tracking-wide;
   @apply border rounded-lg;
   @apply transition-all duration-200 ease-out;
   @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
   @apply ring-offset-[--bg-primary];
-  &:active:not(:disabled) {
+
+  &:active:not([disabled]):not(.pointer-events-none) {
     transform: scale(0.96);
   }
 
-  &:disabled {
-    @apply opacity-50 cursor-not-allowed grayscale-[0.5];
+  &:disabled,
+  &[disabled] {
+    @apply opacity-60 cursor-not-allowed;
+    filter: grayscale(0.4);
     transform: none;
   }
 }
@@ -33,21 +37,37 @@
 }
 
 :host(.btn-icon-only) {
-  @apply px-0;
+  @apply px-0 justify-center;
 }
 
 :host(.btn-icon-only.size-small) {
-  @apply size-[26px];
+  width: 28px;
+  height: 28px;
 }
 
 :host(.btn-icon-only.size-medium) {
-  @apply size-[38px];
+  width: 38px;
+  height: 38px;
 }
 
 :host(.btn-icon-only.size-large) {
-  @apply size-[46px];
+  width: 46px;
+  height: 46px;
 }
 
 :host(.is-rounded) {
   @apply rounded-full;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 3s linear infinite;
 }

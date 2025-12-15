@@ -5,7 +5,7 @@
 <div class="p-10 max-w-5xl mx-auto space-y-10">
   <div class="border-b border-[--border-color] pb-4">
     <h1 class="text-3xl font-bold font-serif mb-2">UI Kit / Design System</h1>
-    <p class="text-[--text-secondary]">Обзор базовых компонентов системы</p>
+    <p>Обзор базовых компонентов системы</p>
   </div>
 
   <section class="space-y-6 grid grid-cols-1 gap-y-6">
@@ -13,7 +13,7 @@
 
     <div class="space-y-2">
       <h3 class="text-sm uppercase tracking-wider">Severity</h3>
-      <div class="flex flex-wrap items-center gap-4">
+      <div class="flex flex-wrap items-center gap-4 relative top-3">
         <button appButton severity="primary">Primary</button>
         <button appButton severity="secondary">Secondary</button>
         <button appButton severity="success">Success</button>
@@ -27,7 +27,7 @@
 
     <div class="space-y-2">
       <h3 class="text-sm uppercase tracking-wider">Rounded</h3>
-      <div class="flex flex-wrap items-center gap-4">
+      <div class="flex flex-wrap items-center gap-4 relative top-3">
         <button appButton severity="primary" [rounded]="true">Primary</button>
         <button appButton severity="secondary" [rounded]="true">Secondary</button>
         <button appButton severity="success" [rounded]="true">Success</button>
@@ -40,8 +40,22 @@
     </div>
 
     <div class="space-y-2">
-      <h3 class="text-sm uppercase tracking-wider text-[--text-secondary]">Outlined</h3>
-      <div class="flex flex-wrap items-center gap-4">
+      <h3 class="text-sm uppercase tracking-wider">Raised</h3>
+      <div class="flex flex-wrap items-center gap-4 relative top-3">
+        <button appButton variant="raised" severity="primary">Primary</button>
+        <button appButton variant="raised" severity="secondary">Secondary</button>
+        <button appButton variant="raised" severity="success">Success</button>
+        <button appButton variant="raised" severity="info">Info</button>
+        <button appButton variant="raised" severity="warning">Warning</button>
+        <button appButton variant="raised" severity="help">Help</button>
+        <button appButton variant="raised" severity="danger">Danger</button>
+        <button appButton variant="raised" severity="contrast">Contrast</button>
+      </div>
+    </div>
+
+    <div class="space-y-2">
+      <h3 class="text-sm uppercase tracking-wider">Outlined</h3>
+      <div class="flex flex-wrap items-center gap-4 relative top-3">
         <button appButton variant="outlined" severity="primary">Primary</button>
         <button appButton variant="outlined" severity="secondary">Secondary</button>
         <button appButton variant="outlined" severity="success">Success</button>
@@ -54,8 +68,33 @@
     </div>
 
     <div class="space-y-2">
-      <h3 class="text-sm uppercase tracking-wider text-[--text-secondary]">Text / Ghost</h3>
-      <div class="flex flex-wrap items-center gap-4">
+      <h2 class="text-sm uppercase tracking-wider">Loading</h2>
+
+      <div class="flex flex-wrap items-center gap-4 relative top-3">
+        <button
+          appButton
+          severity="success"
+          variant="outlined"
+          [icon]="Icons.Check"
+          [loading]="isLoading()"
+          (click)="simulateRequest()"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+
+    <div class="space-y-2">
+      <h2 class="text-sm uppercase tracking-wider">Disabled</h2>
+
+      <div class="flex flex-wrap items-center gap-4 relative top-3">
+        <button appButton severity="secondary" [disabled]="true">Submit</button>
+      </div>
+    </div>
+
+    <div class="space-y-2">
+      <h3 class="text-sm uppercase tracking-wider">Text / Ghost</h3>
+      <div class="flex flex-wrap items-center gap-4 relative top-3">
         <button appButton variant="text" severity="primary">Primary</button>
         <button appButton variant="text" severity="secondary">Secondary</button>
         <button appButton variant="text" severity="success">Success</button>
@@ -68,8 +107,22 @@
     </div>
 
     <div class="space-y-2">
+      <h3 class="text-sm uppercase tracking-wider">Raised Text</h3>
+      <div class="flex flex-wrap items-center gap-4 relative top-3">
+        <button appButton variant="raised-text" severity="primary">Primary</button>
+        <button appButton variant="raised-text" severity="secondary">Secondary</button>
+        <button appButton variant="raised-text" severity="success">Success</button>
+        <button appButton variant="raised-text" severity="info">Info</button>
+        <button appButton variant="raised-text" severity="warning">Warning</button>
+        <button appButton variant="raised-text" severity="help">Help</button>
+        <button appButton variant="raised-text" severity="danger">Danger</button>
+        <button appButton variant="raised-text" severity="contrast">Contrast</button>
+      </div>
+    </div>
+
+    <div class="space-y-2">
       <h3 class="text-sm uppercase tracking-wider">Sizes</h3>
-      <div class="flex flex-wrap items-center gap-4">
+      <div class="flex flex-wrap items-center gap-4 relative top-3">
         <button appButton severity="success" size="large">Large Round</button>
         <button appButton severity="secondary" size="medium">Normal Round</button>
         <button appButton severity="primary" size="small">Small Round</button>
@@ -77,8 +130,8 @@
     </div>
 
     <div class="space-y-2">
-      <h3 class="text-sm uppercase tracking-wider text-[--text-secondary]">With Icons</h3>
-      <div class="flex flex-wrap items-center gap-4">
+      <h3 class="text-sm uppercase tracking-wider">With Icons</h3>
+      <div class="flex flex-wrap items-center gap-4 relative top-3">
         <button appButton severity="primary" [icon]="Icons.Save">Save Changes</button>
 
         <button appButton severity="secondary" variant="outlined" [icon]="Icons.Pointer" iconPos="right">
@@ -90,7 +143,7 @@
     </div>
 
     <div class="space-y-2">
-      <h3 class="text-sm uppercase tracking-wider text-[--text-secondary]">Icon Only</h3>
+      <h3 class="text-sm uppercase tracking-wider">Icon Only</h3>
       <div class="flex flex-wrap items-center gap-4 mb-6">
         <button appButton severity="primary" [icon]="Icons.Check" [iconOnly]="true" aria-label="Check"></button>
         <button appButton severity="secondary" [icon]="Icons.Bookmark" [iconOnly]="true" aria-label="Bookmark"></button>
@@ -291,8 +344,8 @@
     </div>
 
     <div class="space-y-2">
-      <h3 class="text-sm uppercase tracking-wider text-[--text-secondary]">Icon Examples</h3>
-      <div class="flex flex-wrap items-center gap-4">
+      <h3 class="text-sm uppercase tracking-wider">Icon Examples</h3>
+      <div class="flex flex-wrap items-center gap-4 relative top-3">
         <button appButton severity="primary" [icon]="Icons.Search" [iconOnly]="true" aria-label="Search"></button>
 
         <button

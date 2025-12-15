@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { Button } from '@shared/ui/button/button';
 import { ThemeSwitcherComponent } from '@shared/ui/theme-switcher/theme-switcher';
 import {
@@ -34,4 +34,16 @@ export class Reference {
     Heart,
     X,
   };
+
+  protected isLoading = signal<boolean>(false);
+  protected simulateRequest(): void {
+    if (this.isLoading()) {
+      return;
+    }
+
+    this.isLoading.set(true);
+    setTimeout(() => {
+      this.isLoading.set(false);
+    }, 3000);
+  }
 }

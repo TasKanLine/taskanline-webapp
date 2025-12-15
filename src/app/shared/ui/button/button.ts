@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, input, computed, ChangeDetectionStrategy } from '@angular/core';
-import { LucideAngularModule, LucideIconData } from 'lucide-angular';
+import { LucideAngularModule, LucideIconData, LoaderCircle } from 'lucide-angular';
 import { ButtonSeverity, ButtonSize, ButtonVariant, ButtonIconPos } from './button.types';
 import { BUTTON_BASE_CLASSES, SOLID_COLORS, OUTLINED_COLORS, TEXT_COLORS, SIZES } from './button.styles';
 
@@ -9,13 +9,24 @@ import { BUTTON_BASE_CLASSES, SOLID_COLORS, OUTLINED_COLORS, TEXT_COLORS, SIZES 
   standalone: true,
   imports: [CommonModule, LucideAngularModule],
   template: `
-    @if (icon() && iconPos() === 'left') {
+    @if (loading()) {
+      <lucide-icon
+        [img]="LoaderCircleIcon"
+        class="animate-spin"
+        [class]="iconClass()"
+        [strokeWidth]="2.5"
+      ></lucide-icon>
+    }
+
+    @if (!loading() && icon() && iconPos() === 'left') {
       <lucide-icon [img]="icon()!" [class]="iconClass()" [strokeWidth]="2.5"></lucide-icon>
     }
 
-    <ng-content></ng-content>
+    @if (!loading()) {
+      <ng-content></ng-content>
+    }
 
-    @if (icon() && iconPos() === 'right') {
+    @if (!loading() && icon() && iconPos() === 'right') {
       <lucide-icon [img]="icon()!" [class]="iconClass()" [strokeWidth]="2.5"></lucide-icon>
     }
   `,
@@ -23,9 +34,12 @@ import { BUTTON_BASE_CLASSES, SOLID_COLORS, OUTLINED_COLORS, TEXT_COLORS, SIZES 
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '[class]': 'computedClasses()',
+    '[attr.disabled]': 'isDisabled() ? true : null',
+    '[attr.aria-disabled]': 'isDisabled()',
   },
 })
 export class Button {
+  //INFO Inputs
   severity = input<ButtonSeverity>('primary');
   size = input<ButtonSize>('medium');
   variant = input<ButtonVariant>('basic');
@@ -33,20 +47,34 @@ export class Button {
   icon = input<LucideIconData | undefined>(undefined);
   iconPos = input<ButtonIconPos>('left');
   iconOnly = input<boolean>(false);
+  loading = input<boolean>(false);
+  disabled = input<boolean>(false);
+  shadow = input<boolean>(false);
+
+  readonly LoaderCircleIcon = LoaderCircle;
+
+  isDisabled = computed(() => this.disabled() || this.loading());
 
   computedClasses = computed(() => {
     const currentSeverity = this.severity();
     const currentSize = this.size();
     const currentVariant = this.variant();
     const isIconOnly = this.iconOnly();
+    const isLoading = this.loading();
+    const isShadow = this.shadow() || currentVariant === 'raised' || currentVariant === 'raised-text';
 
     const base = BUTTON_BASE_CLASSES;
-
     const sizeClass = SIZES[currentSize] || SIZES['medium'];
-
     const roundClass = this.rounded() ? 'is-rounded' : '';
-
     const iconOnlyClass = isIconOnly ? 'btn-icon-only' : '';
+
+    const stateClass = this.isDisabled()
+      ? 'opacity-75 cursor-not-allowed pointer-events-none'
+      : isLoading
+        ? 'cursor-wait'
+        : '';
+
+    const shadowClass = isShadow ? 'shadow-md hover:shadow-lg active:shadow-none transition-shadow' : '';
 
     let colorClass = '';
     switch (currentVariant) {
@@ -54,20 +82,23 @@ export class Button {
         colorClass = OUTLINED_COLORS[currentSeverity];
         break;
       case 'text':
+      case 'raised-text':
         colorClass = TEXT_COLORS[currentSeverity];
         break;
       case 'link':
         colorClass = TEXT_COLORS[currentSeverity] + ' underline-offset-4 hover:underline';
         break;
+      case 'raised':
       default:
         colorClass = SOLID_COLORS[currentSeverity];
         break;
     }
+
     if (!colorClass) {
       colorClass = SOLID_COLORS['primary'];
     }
 
-    return `${base} ${colorClass} ${sizeClass} ${roundClass} ${iconOnlyClass}`;
+    return `${base} ${colorClass} ${sizeClass} ${roundClass} ${iconOnlyClass} ${stateClass} ${shadowClass}`;
   });
 
   iconClass = computed(() => {
