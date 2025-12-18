@@ -1,0 +1,90 @@
+<div class="flex flex-col items-start justify-start fixed right-5 top-5 z-10">
+  <app-theme-switcher></app-theme-switcher>
+</div>
+
+<div
+  class="min-h-screen flex items-center justify-center p-4 bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-300"
+>
+  <div class="w-full max-w-[400px] md:max-w-[450px]">
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <h2 class="text-3xl font-bold font-serif text-[var(--text-primary)]">TasKanLine</h2>
+    </div>
+
+    <!-- Card -->
+    <div
+      class="bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-lg p-6 sm:p-8 shadow-sm transition-colors duration-300"
+    >
+      <h1 class="text-2xl font-bold font-serif mb-2">Welcome Back</h1>
+      <p class="text-sm opacity-70 mb-6">Log in to continue to TasKanLine</p>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <!-- Email field -->
+        <div class="mb-4 mt-4">
+          <label for="email" class="block text-sm font-medium mb-2">Email</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            class="w-full px-4 py-2 border rounded-md bg-[var(--bg-primary)] text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+            [class.border-red-500]="isFieldInvalid('email')"
+            [class.border-[var(--border-color)]]="!isFieldInvalid('email')"
+            [attr.aria-invalid]="isFieldInvalid('email')"
+          />
+          @if (isFieldInvalid('email')) {
+          <p class="text-red-500 text-xs mt-1" role="alert">Please enter a valid email address</p>
+          }
+        </div>
+
+        <!-- Password field with toggle -->
+        <div class="mb-6">
+          <label for="password" class="block text-sm font-medium mb-2">Password</label>
+          <div class="relative">
+            <input
+              id="password"
+              [type]="showPassword() ? 'text' : 'password'"
+              formControlName="password"
+              class="w-full px-4 py-2 border rounded-md bg-[var(--bg-primary)] text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+              [class.border-red-500]="isFieldInvalid('password')"
+              [class.border-[var(--border-color)]]="!isFieldInvalid('password')"
+              [attr.aria-invalid]="isFieldInvalid('password')"
+            />
+            <button
+              type="button"
+              (click)="togglePasswordVisibility()"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-primary)] opacity-60 hover:opacity-100 transition-opacity"
+              [attr.aria-label]="showPassword() ? 'Hide password' : 'Show password'"
+            >
+              <lucide-icon [img]="showPassword() ? EyeOff : Eye" [size]="20" [strokeWidth]="2"></lucide-icon>
+            </button>
+          </div>
+          @if (isFieldInvalid('password')) {
+          <p class="text-red-500 text-xs mt-1" role="alert">Password is required</p>
+          }
+        </div>
+
+        <!-- Submit button -->
+        <button
+          appButton
+          severity="primary"
+          type="submit"
+          class="w-full"
+          [disabled]="loginForm.invalid"
+          [loading]="isLoading()"
+        >
+          Log in
+        </button>
+      </form>
+
+      <!-- Links -->
+      <div class="mt-6 flex flex-col gap-3 text-center text-sm">
+        <a routerLink="/signup" class="text-cyan-600 hover:text-cyan-500 hover:underline transition-colors">
+          Don't have an account? Sign Up
+        </a>
+        <a href="#" class="text-[var(--text-primary)] opacity-60 hover:opacity-100 hover:underline transition-opacity">
+          Forgot password?
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
