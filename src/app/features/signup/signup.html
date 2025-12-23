@@ -15,8 +15,8 @@
     <div
       class="bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-lg p-6 sm:p-8 shadow-sm transition-colors duration-300"
     >
-      <h1 class="text-2xl font-bold font-serif mb-2">Create Account</h1>
-      <p class="text-sm opacity-70 mb-6">Join TasKanLine and manage your projects</p>
+      <h1 class="text-2xl font-bold font-serif mb-2 text-center">Create Account</h1>
+      <p class="text-sm opacity-70 mb-6 text-center">Join TasKanLine and manage your projects</p>
 
       <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
         <!-- Email field -->
@@ -26,7 +26,7 @@
             id="email"
             type="email"
             formControlName="email"
-            class="w-full px-4 py-2 border rounded-md bg-[var(--bg-primary)] text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+            class="w-full px-4 py-2 border rounded-md bg-[var(--bg-primary)] text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
             [class.border-red-500]="isFieldInvalid('email')"
             [class.border-[var(--border-color)]]="!isFieldInvalid('email')"
             [attr.aria-invalid]="isFieldInvalid('email')"
@@ -43,7 +43,7 @@
             id="username"
             type="text"
             formControlName="username"
-            class="w-full px-4 py-2 border rounded-md bg-[var(--bg-primary)] text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+            class="w-full px-4 py-2 border rounded-md bg-[var(--bg-primary)] text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
             [class.border-red-500]="isFieldInvalid('username')"
             [class.border-[var(--border-color)]]="!isFieldInvalid('username')"
             [attr.aria-invalid]="isFieldInvalid('username')"
@@ -66,7 +66,7 @@
               id="firstName"
               type="text"
               formControlName="firstName"
-              class="w-full px-4 py-2 border rounded-md bg-[var(--bg-primary)] text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+              class="w-full px-4 py-2 border rounded-md bg-[var(--bg-primary)] text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
               [class.border-red-500]="isFieldInvalid('firstName')"
               [class.border-[var(--border-color)]]="!isFieldInvalid('firstName')"
               [attr.aria-invalid]="isFieldInvalid('firstName')"
@@ -82,7 +82,7 @@
               id="lastName"
               type="text"
               formControlName="lastName"
-              class="w-full px-4 py-2 border rounded-md bg-[var(--bg-primary)] text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+              class="w-full px-4 py-2 border rounded-md bg-[var(--bg-primary)] text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
               [class.border-red-500]="isFieldInvalid('lastName')"
               [class.border-[var(--border-color)]]="!isFieldInvalid('lastName')"
               [attr.aria-invalid]="isFieldInvalid('lastName')"
@@ -101,7 +101,7 @@
               id="password"
               [type]="showPassword() ? 'text' : 'password'"
               formControlName="password"
-              class="w-full px-4 py-2 border rounded-md bg-[var(--bg-primary)] text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+              class="w-full px-4 py-2 border rounded-md bg-[var(--bg-primary)] text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
               [class.border-red-500]="isFieldInvalid('password')"
               [class.border-[var(--border-color)]]="!isFieldInvalid('password')"
               [attr.aria-invalid]="isFieldInvalid('password')"
@@ -137,7 +137,7 @@
 
       <!-- Links -->
       <div class="mt-6 text-left text-sm">
-        <a routerLink="/login" class="text-cyan-600 hover:text-cyan-500 hover:underline transition-colors">
+        <a routerLink="/login" class="text-teal-600 hover:text-teal-500 hover:underline transition-colors">
           Already have an account? Log in
         </a>
       </div>

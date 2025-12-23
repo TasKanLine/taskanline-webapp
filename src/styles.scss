@@ -2,12 +2,12 @@
 @import 'tailwindcss';
 
 :root {
-  --bg-primary: #faf3e1;
-  --bg-secondary: #ece4d3;
+  --bg-primary: #fffcf0;
+  --bg-secondary: #f2f0e5;
 
-  --text-primary: #1b1b1f;
+  --text-primary: #100f0f;
 
-  --border-color: #d0c8b0;
+  --border-color: #e6e4d9;
 }
 
 h1,
@@ -345,10 +345,10 @@ svg * {
 }
 
 .dark {
-  --bg-primary: #1b1b1f;
-  --bg-secondary: #2c2c2c;
+  --bg-primary: #100f0f;
+  --bg-secondary: #1c1b1a;
 
-  --text-primary: #faf3e1;
+  --text-primary: #fffcf0;
 
-  --border-color: #3e3e3e;
+  --border-color: #282726;
 }
