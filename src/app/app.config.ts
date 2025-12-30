@@ -5,6 +5,7 @@ import {
   APP_INITIALIZER,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { routes } from './app.routes';
 import { LucideAngularModule, Pointer } from 'lucide-angular';
 import { provideStore, Store } from '@ngrx/store';
@@ -17,12 +18,13 @@ import { errorInterceptor } from './core/auth/interceptors/error.interceptor';
 import { AuthActions } from './core/auth/store/auth.actions';
 
 // Функция для запуска проверки авторизации при старте
-function initializeApp(store: Store) {
+function initializeApp(store: Store): () => void {
   return () => store.dispatch(AuthActions.checkAuth());
 }
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideAnimationsAsync(),
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideHttpClient(withInterceptors([authInterceptor, errorInterceptor])),

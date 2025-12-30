@@ -3,7 +3,7 @@ import { Injectable, signal } from '@angular/core';
 export interface Toast {
   id: string;
   message: string;
-  type: 'success' | 'error' | 'info';
+  type: 'success' | 'error' | 'info' | 'warning';
   duration?: number;
 }
 
@@ -13,7 +13,7 @@ export interface Toast {
 export class ToastService {
   toasts = signal<Toast[]>([]);
 
-  show(message: string, type: 'success' | 'error' | 'info' = 'info', duration = 3000): void {
+  show(message: string, type: 'success' | 'error' | 'info' | 'warning' = 'info', duration = 3000): void {
     const id = Math.random().toString(36).substring(2, 9);
     const toast: Toast = { id, message, type, duration };
 

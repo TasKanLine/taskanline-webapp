@@ -1,5 +1,3 @@
-import { User } from './user.model';
-
 export interface SignupRequest {
   email: string;
   username: string;
