@@ -40,7 +40,7 @@ export class AuthEffects {
         ofType(AuthActions.loginSuccess),
         tap(() => {
           this.toastService.show('Login successful!', 'success');
-          this.router.navigate(['/reference']);
+          this.router.navigate(['/profile']);
         }),
       ),
     { dispatch: false },
