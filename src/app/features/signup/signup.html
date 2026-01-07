@@ -26,7 +26,8 @@
             id="email"
             type="email"
             formControlName="email"
-            class="w-full px-4 py-2 border rounded-md bg-[var(--bg-primary)] text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+            placeholder="yourname@example.com"
+            class="w-full px-4 py-2 border rounded-md bg-[var(--bg-primary)] text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
             [class.border-red-500]="isFieldInvalid('email') || getFieldError('email')"
             [class.border-[var(--border-color)]]="!isFieldInvalid('email') && !getFieldError('email')"
             [attr.aria-invalid]="isFieldInvalid('email') || !!getFieldError('email')"
@@ -45,7 +46,8 @@
             id="username"
             type="text"
             formControlName="username"
-            class="w-full px-4 py-2 border rounded-md bg-[var(--bg-primary)] text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+            placeholder="Enter username"
+            class="w-full px-4 py-2 border rounded-md bg-[var(--bg-primary)] text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
             [class.border-red-500]="isFieldInvalid('username') || getFieldError('username')"
             [class.border-[var(--border-color)]]="!isFieldInvalid('username') && !getFieldError('username')"
             [attr.aria-invalid]="isFieldInvalid('username') || !!getFieldError('username')"
@@ -69,7 +71,8 @@
               id="firstName"
               type="text"
               formControlName="firstName"
-              class="w-full px-4 py-2 border rounded-md bg-[var(--bg-primary)] text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+              placeholder="Enter first name"
+              class="w-full px-4 py-2 border rounded-md bg-[var(--bg-primary)] text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
               [class.border-red-500]="isFieldInvalid('firstName') || getFieldError('firstName')"
               [class.border-[var(--border-color)]]="!isFieldInvalid('firstName') && !getFieldError('firstName')"
               [attr.aria-invalid]="isFieldInvalid('firstName') || !!getFieldError('firstName')"
@@ -86,7 +89,8 @@
               id="lastName"
               type="text"
               formControlName="lastName"
-              class="w-full px-4 py-2 border rounded-md bg-[var(--bg-primary)] text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+              placeholder="Enter last name"
+              class="w-full px-4 py-2 border rounded-md bg-[var(--bg-primary)] text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
               [class.border-red-500]="isFieldInvalid('lastName') || getFieldError('lastName')"
               [class.border-[var(--border-color)]]="!isFieldInvalid('lastName') && !getFieldError('lastName')"
               [attr.aria-invalid]="isFieldInvalid('lastName') || !!getFieldError('lastName')"
@@ -107,7 +111,8 @@
               id="password"
               [type]="showPassword() ? 'text' : 'password'"
               formControlName="password"
-              class="w-full px-4 py-2 border rounded-md bg-[var(--bg-primary)] text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+              placeholder="********"
+              class="w-full px-4 py-2 border rounded-md bg-[var(--bg-primary)] text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
               [class.border-red-500]="isFieldInvalid('password') || getFieldError('password')"
               [class.border-[var(--border-color)]]="!isFieldInvalid('password') && !getFieldError('password')"
               [attr.aria-invalid]="isFieldInvalid('password') || !!getFieldError('password')"
@@ -156,7 +161,7 @@
 
       <!-- Links -->
       <div class="mt-6 text-center text-sm">
-        <a routerLink="/login" class="text-cyan-600 hover:text-cyan-500 hover:underline transition-colors">
+        <a routerLink="/login" class="text-teal-600 hover:text-teal-500 hover:underline transition-colors">
           Already have an account? Sign In
         </a>
       </div>

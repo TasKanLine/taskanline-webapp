@@ -9,7 +9,7 @@
 - **Styling**: TailwindCSS v4 + SCSS
 - **Icons**: Lucide Angular
 - **Fonts**: IBM Plex Sans (UI), IBM Plex Serif (заголовки)
-- **Design System**: Flexoki цветовая палитра, акцентный цвет — **Cyan**
+- **Design System**: Flexoki цветовая палитра, акцентный цвет — **Teal**
 
 ## Структура проекта
 
@@ -38,7 +38,7 @@ src/app/
 ### 1. Общая стилистика
 - **Стиль**: минимализм + корпоративный
 - **Цветовая палитра**: Flexoki
-- **Акцентный цвет**: Cyan (используй из Flexoki палитры)
+- **Акцентный цвет**: Teal (используй из Flexoki палитры)
 - **Layout**: центрированная форма на полный экран
 - **Темная тема**: уже реализована через `ThemeService`, используй CSS-переменные из `styles.scss`
 
@@ -153,7 +153,7 @@ loginForm = this.fb.group({
 
 ### 5. Состояния
 - **Normal**: стандартное поле
-- **Focus**: border accent цвет (Cyan)
+- **Focus**: border accent цвет (Teal)
 - **Error**: красная рамка + сообщение
 - **Disabled**: opacity 0.5, cursor not-allowed
 - **Loading**: кнопка с loading state (используй `[loading]="true"`)
@@ -306,7 +306,7 @@ export class Login {
 
       <!-- Links -->
       <div class="mt-6 text-center text-sm">
-        <a routerLink="/signup" class="text-cyan-600 hover:underline">
+        <a routerLink="/signup" class="text-teal-600 hover:underline">
           Don't have an account? Sign Up
         </a>
       </div>
@@ -319,9 +319,9 @@ export class Login {
 
 ## Цветовая палитра Flexoki (для справки)
 
-**Cyan (акцентный):**
-- Light: `#4385be` (cyan-600)
-- Dark: `#3c99dc` (cyan-500)
+**Teal (акцентный):**
+- Light: `#4385be` (teal-600)
+- Dark: `#3c99dc` (teal-500)
 
 **Background:**
 - Light: используй существующие `--bg-primary`, `--bg-secondary`
@@ -332,10 +332,10 @@ export class Login {
 
 **Используй Tailwind утилиты с Flexoki цветами:**
 ```css
-/* В tailwind.config.js можно добавить кастомные цвета, но пока используй стандартные cyan */
-focus:ring-cyan-500
-border-cyan-600
-text-cyan-600
+/* В tailwind.config.js можно добавить кастомные цвета, но пока используй стандартные teal */
+focus:ring-teal-500
+border-teal-600
+text-teal-600
 ```
 
 ---

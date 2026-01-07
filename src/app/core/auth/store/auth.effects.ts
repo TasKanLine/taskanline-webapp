@@ -39,8 +39,8 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(AuthActions.loginSuccess),
         tap(() => {
-          this.toastService.show('Welcome back!', 'success');
-          this.router.navigate(['/']);
+          this.toastService.show('Login successful!', 'success');
+          this.router.navigate(['/reference']);
         }),
       ),
     { dispatch: false },

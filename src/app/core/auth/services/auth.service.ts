@@ -41,6 +41,6 @@ export class AuthService {
     // async def read_users_me(current_user: User = Depends(get_current_user)):
     //     return current_user
     // Предполагаем, что он будет доступен по /api/v1/users/me или /api/v1/auth/me
-    return this.http.get<User>(`${this.authUrl}/protected`);
+    return this.http.get<User>(`${this.authUrl}/me`);
   }
 }
