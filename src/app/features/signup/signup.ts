@@ -1,13 +1,28 @@
 import { Component, signal, inject, computed } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  FormBuilder,
+  Validators,
+  AbstractControl,
+  ValidationErrors,
+  ValidatorFn,
+} from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { LucideAngularModule, Eye, EyeOff } from 'lucide-angular';
 import { Button } from '@shared/ui/button/button';
 import { Store } from '@ngrx/store';
 import { AuthActions } from '@core/auth/store/auth.actions';
 import { selectIsLoading, selectError } from '@core/auth/store/auth.reducer';
-import { ValidationError } from '@core/auth/models/auth-dto.model';
 import { ThemeSwitcherComponent } from '@shared/ui/theme-switcher/theme-switcher';
+import { HTTPValidationError } from '@core/auth/models/auth-dto.model';
+
+// Валидатор для сравнения паролей
+const passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+  const password = control.get('password');
+  const confirmPassword = control.get('confirmPassword');
+
+  return password && confirmPassword && password.value !== confirmPassword.value ? { passwordMismatch: true } : null;
+};
 
 @Component({
   selector: 'app-signup',
@@ -24,16 +39,22 @@ export class Signup {
   readonly EyeOff = EyeOff;
 
   showPassword = signal(false);
+  showConfirmPassword = signal(false);
+
   isLoading = this.store.selectSignal(selectIsLoading);
   error = this.store.selectSignal(selectError);
 
-  signupForm = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
-    username: ['', [Validators.required, Validators.minLength(3), Validators.pattern(/^[a-zA-Z0-9_]+$/)]],
-    firstName: ['', [Validators.required]],
-    lastName: ['', [Validators.required]],
-    password: ['', [Validators.required, Validators.minLength(8)]],
-  });
+  signupForm = this.fb.group(
+    {
+      email: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required, Validators.minLength(3), Validators.pattern(/^[a-zA-Z0-9_]+$/)]],
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['', [Validators.required]],
+    },
+    { validators: passwordMatchValidator }, // Валидатор на уровне группы
+  );
 
   passwordStrength = signal(0);
   passwordStrengthLabel = computed(() => {
@@ -53,6 +74,8 @@ export class Signup {
   constructor() {
     this.signupForm.get('password')?.valueChanges.subscribe((val) => {
       this.calculatePasswordStrength(val || '');
+      // При изменении пароля нужно перепроверить совпадение
+      this.signupForm.get('confirmPassword')?.updateValueAndValidity();
     });
   }
 
@@ -60,33 +83,42 @@ export class Signup {
     this.showPassword.update((v) => !v);
   }
 
+  toggleConfirmPasswordVisibility(): void {
+    this.showConfirmPassword.update((v) => !v);
+  }
+
   isFieldInvalid(fieldName: string): boolean {
     const field = this.signupForm.get(fieldName);
     return !!(field?.invalid && (field?.dirty || field?.touched));
   }
 
-  // ВАЖНОЕ ИСПРАВЛЕНИЕ: Маппинг имен полей Angular -> API
-  getFieldError(controlName: string): string | null {
-    const error = this.error() as any;
-    if (!error || !error.detail || !Array.isArray(error.detail)) {
-      return null;
+  // Хелпер специально для ошибки совпадения паролей
+  isPasswordMismatch(): boolean {
+    return (
+      this.signupForm.hasError('passwordMismatch') &&
+      (this.signupForm.get('confirmPassword')?.dirty || this.signupForm.get('confirmPassword')?.touched || false)
+    );
+  }
+
+  getFieldError(fieldName: string): string | null {
+    const error = this.error();
+    if (this.isValidationError(error)) {
+      const fieldMapping: Record<string, string> = {
+        firstName: 'first_name',
+        lastName: 'last_name',
+        email: 'email',
+        username: 'username',
+        password: 'password',
+      };
+      const apiFieldName = fieldMapping[fieldName] || fieldName;
+      const fieldError = error.detail.find((e) => e.loc.includes(apiFieldName));
+      return fieldError ? fieldError.msg : null;
     }
+    return null;
+  }
 
-    // Словарь соответствия: Имя в форме -> Имя в API (snake_case)
-    const fieldMapping: Record<string, string> = {
-      firstName: 'first_name',
-      lastName: 'last_name',
-      email: 'email',
-      username: 'username',
-      password: 'password',
-    };
-
-    const apiFieldName = fieldMapping[controlName] || controlName;
-
-    // Ищем ошибку, где loc содержит имя поля API
-    const fieldError = error.detail.find((e: ValidationError) => e.loc.includes(apiFieldName));
-
-    return fieldError ? fieldError.msg : null;
+  private isValidationError(error: unknown): error is HTTPValidationError {
+    return !!error && typeof error === 'object' && 'detail' in error && Array.isArray((error as any).detail);
   }
 
   calculatePasswordStrength(password: string): void {
@@ -107,14 +139,12 @@ export class Signup {
     if (/[^A-Za-z0-9]/.test(password)) {
       score += 1;
     }
-
     this.passwordStrength.set(score);
   }
 
   onSubmit(): void {
     if (this.signupForm.valid) {
       const { email, username, firstName, lastName, password } = this.signupForm.value;
-      // Проверка на null/undefined
       if (email && username && firstName && lastName && password) {
         this.store.dispatch(
           AuthActions.signup({
