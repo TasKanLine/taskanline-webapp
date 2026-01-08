@@ -20,7 +20,7 @@
 
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <!-- Email field -->
-        <div class="mb-4">
+        <div class="mb-4 transition-colors duration-300">
           <label for="email" class="block text-sm font-medium mb-2">Email</label>
           <input
             id="email"
@@ -40,9 +40,9 @@
         </div>
 
         <!-- Password field with toggle -->
-        <div class="mb-4">
+        <div class="mb-4 transition-colors duration-300">
           <label for="password" class="block text-sm font-medium mb-2">Password</label>
-          <div class="relative">
+          <div class="relative transition-colors duration-300">
             <input
               id="password"
               [type]="showPassword() ? 'text' : 'password'"

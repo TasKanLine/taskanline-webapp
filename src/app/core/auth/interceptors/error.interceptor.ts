@@ -2,7 +2,7 @@ import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { catchError, throwError } from 'rxjs';
-import { AuthActions } from '@core/auth/store/auth.actions';
+import { AuthActions } from '../store/auth.actions';
 import { ToastService } from '@core/services/toast.service';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
@@ -11,19 +11,22 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
-      if (error.status === 401) {
-        // Unauthorized - Logout and redirect
-        // Only dispatch logout if we are not already on login page or trying to login?
-        // Actually, if we get 401 during checkAuth or normal usage, we should logout.
-        // If we get 401 during Login attempt, the Effect handles it via LoginFailure.
-        // But for global protection:
-        if (!req.url.includes('/login')) {
-          store.dispatch(AuthActions.logout());
-        }
+      // Игнорируем 401, если это запрос на проверку авторизации (/me)
+      // или если это сам запрос логина (там ошибка обрабатывается в компоненте)
+      const isCheckAuthRequest = req.url.includes('/me');
+      const isLoginRequest = req.url.includes('/login');
+
+      if (error.status === 401 && !isCheckAuthRequest && !isLoginRequest) {
+        // Если 401 пришел от любого ДРУГОГО запроса (например, getProjects),
+        // значит, токен протух во время работы -> делаем Logout
+        store.dispatch(AuthActions.logout());
       } else if (error.status >= 500 || error.status === 0) {
+        // Ошибки сервера показываем всегда
         toastService.show('Network or Server Error. Please try again later.', 'error');
       }
 
+      // Пробрасываем ошибку дальше, чтобы Effect или Компонент могли её обработать
+      // (например, чтобы checkAuthEffect мог поставить isAuthenticated: false)
       return throwError(() => error);
     }),
   );

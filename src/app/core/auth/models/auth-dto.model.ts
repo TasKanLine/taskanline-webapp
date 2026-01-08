@@ -24,6 +24,11 @@ export interface SignupResponse {
 // Поэтому отдельный интерфейс AuthResponse может не понадобиться,
 // но для SignupSuccess в NgRx он нужен.
 
+export interface CheckAuthResponse {
+  message: string;
+  user_data: import('./user.model').User;
+}
+
 export interface ValidationError {
   loc: (string | number)[];
   msg: string;

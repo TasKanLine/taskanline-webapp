@@ -9,6 +9,7 @@ export const AuthActions = createActionGroup({
     Login: props<{ request: LoginRequest }>(),
     'Login Success': props<{ user: User }>(),
     'Login Failure': props<{ error: HTTPValidationError | HttpErrorResponse }>(),
+    'Login Sync': props<{ user: User }>(),
 
     Signup: props<{ request: SignupRequest }>(),
     // ИСПРАВЛЕНО: response теперь типа SignupResponse

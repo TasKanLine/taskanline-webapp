@@ -36,6 +36,14 @@ export const authFeature = createFeature({
       isAuthenticated: true,
       error: null,
     })),
+    // ДОБАВЛЯЕМ ОБРАБОТКУ SYNC: То же самое, что Success, просто обновляем данные
+    on(AuthActions.loginSync, (state, { user }) => ({
+      ...state,
+      isLoading: false,
+      user,
+      isAuthenticated: true,
+      error: null,
+    })),
     on(AuthActions.loginFailure, (state, { error }) => ({
       ...state,
       isLoading: false,

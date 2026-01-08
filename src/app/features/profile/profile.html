@@ -1,1 +1,58 @@
-<p>profile works!</p>
+<div class="flex flex-col items-start justify-start fixed right-5 top-5 z-10">
+  <app-theme-switcher></app-theme-switcher>
+</div>
+
+<div
+  class="flex min-h-screen items-center justify-center p-4 bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-300"
+>
+  <div
+    class="w-full max-w-md rounded-2xl p-8 shadow-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] transition-colors duration-300"
+  >
+    <!-- Header / Avatar -->
+    <div class="flex flex-col items-center gap-4">
+      <div
+        class="flex h-20 w-20 items-center justify-center rounded-full bg-teal-100 text-2xl font-bold text-teal-700 transition-colors duration-300"
+      >
+        {{ initials() }}
+      </div>
+
+      <div class="text-center transition-colors duration-300">
+        <h2 class="text-2xl font-bold text-[var(--text-primary)]">{{ user()?.first_name }} {{ user()?.last_name }}</h2>
+        <p class="text-sm font-medium text-[var(--text-primary)]">@if (user()?.username) { @{{ user()?.username }} }</p>
+      </div>
+    </div>
+
+    <!-- Details -->
+    <div class="mt-8 space-y-4">
+      <div
+        class="flex items-center justify-between bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-lg p-3 transition-colors duration-300"
+      >
+        <span class="text-sm font-medium">Email</span>
+        <span class="text-sm font-medium">{{ user()?.email }}</span>
+      </div>
+
+      @if (user()?.phone_number) {
+      <div
+        class="flex items-center justify-between bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-lg p-3 transition-colors duration-300"
+      >
+        <span class="text-sm font-medium">Phone</span>
+        <span class="text-sm font-medium">{{ user()?.phone_number }}</span>
+      </div>
+      }
+    </div>
+
+    <!-- Actions -->
+    <div class="mt-8">
+      <button
+        appButton
+        severity="danger"
+        variant="raised"
+        class="w-full justify-center"
+        [icon]="LogOutIcon"
+        (click)="logout()"
+      >
+        Logout
+      </button>
+    </div>
+  </div>
+</div>

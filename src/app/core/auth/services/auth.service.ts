@@ -1,19 +1,31 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Injectable, inject, OnDestroy } from '@angular/core';
+import { Observable, fromEvent } from 'rxjs';
 import { environment } from '@env/environment';
-import { LoginRequest, SignupRequest, SignupResponse } from '@core/auth/models/auth-dto.model';
+import { LoginRequest, SignupRequest, SignupResponse, CheckAuthResponse } from '@core/auth/models/auth-dto.model';
 import { User } from '@core/auth/models/user.model';
+import { map } from 'rxjs/operators';
+
+export interface AuthMessage {
+  type: 'login' | 'logout';
+  payload?: User;
+}
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class AuthService implements OnDestroy {
   private http = inject(HttpClient);
   // Базовый URL для auth
   private authUrl = environment.apiUrl + '/auth';
   // Базовый URL для users (если эндпоинт me там)
   private usersUrl = environment.apiUrl + '/users';
+
+  private authChannel = new BroadcastChannel('auth_channel');
+
+  ngOnDestroy(): void {
+    this.authChannel.close();
+  }
 
   signup(data: SignupRequest): Observable<SignupResponse> {
     return this.http.post<SignupResponse>(`${this.authUrl}/signup`, data);
@@ -35,12 +47,24 @@ export class AuthService {
     return this.http.post<void>(`${this.authUrl}/logout`, {});
   }
 
+  broadcastLogout(): void {
+    this.authChannel.postMessage({ type: 'logout' } as AuthMessage);
+  }
+
+  broadcastLogin(user: User): void {
+    this.authChannel.postMessage({ type: 'login', payload: user } as AuthMessage);
+  }
+
+  get authMessage$(): Observable<AuthMessage> {
+    return fromEvent<MessageEvent>(this.authChannel, 'message').pipe(map((event) => event.data));
+  }
+
   checkAuth(): Observable<User> {
     // ВАЖНО: Тебе нужно создать этот endpoint в Python:
     // @router.get("/me", response_model=schemas.User)
     // async def read_users_me(current_user: User = Depends(get_current_user)):
     //     return current_user
     // Предполагаем, что он будет доступен по /api/v1/users/me или /api/v1/auth/me
-    return this.http.get<User>(`${this.authUrl}/me`);
+    return this.http.get<CheckAuthResponse>(`${this.authUrl}/me`).pipe(map((response) => response.user_data));
   }
 }
