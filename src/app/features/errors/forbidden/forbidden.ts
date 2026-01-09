@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './forbidden.html',
   styleUrl: './forbidden.scss',
 })
-export class Forbidden {
-
-}
+export class Forbidden {}

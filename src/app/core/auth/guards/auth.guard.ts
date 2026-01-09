@@ -1,16 +1,17 @@
 import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
+import { CanActivateChildFn, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { map, take } from 'rxjs';
-import { selectIsAuthenticated } from '@core/auth/store/auth.reducer';
+import { combineLatest, filter, map, take } from 'rxjs';
+import { selectIsAuthenticated, selectIsLoading } from '@core/auth/store/auth.reducer';
 
-export const authGuard: CanActivateFn = () => {
+export const authGuard: CanActivateChildFn = () => {
   const store = inject(Store);
   const router = inject(Router);
 
-  return store.select(selectIsAuthenticated).pipe(
+  return combineLatest([store.select(selectIsAuthenticated), store.select(selectIsLoading)]).pipe(
+    filter(([_, isLoading]) => !isLoading),
     take(1),
-    map((isAuthenticated) => {
+    map(([isAuthenticated, _]) => {
       if (isAuthenticated) {
         return true;
       }
