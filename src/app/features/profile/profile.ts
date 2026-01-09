@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, computed, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AuthActions } from '@core/auth/store/auth.actions';
 import { selectUser } from '@core/auth/store/auth.reducer';
@@ -13,6 +13,7 @@ import { LucideAngularModule, LogOut } from 'lucide-angular';
   imports: [CommonModule, Button, ThemeSwitcherComponent, LucideAngularModule],
   templateUrl: './profile.html',
   styleUrl: './profile.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Profile {
   private store = inject(Store);

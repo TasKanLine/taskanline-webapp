@@ -66,7 +66,48 @@ export class AuthEffects {
     { dispatch: false },
   );
 
-  // ... (Signup эффекты без изменений) ...
+  signup$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.signup),
+      switchMap(({ request }) =>
+        this.authService.signup(request).pipe(
+          map((response) => AuthActions.signupSuccess({ response })),
+          catchError((error) => {
+            const errData = error.error || error;
+            return of(AuthActions.signupFailure({ error: errData }));
+          }),
+        ),
+      ),
+    ),
+  );
+
+  signupSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.signupSuccess),
+        tap(({ response }) => {
+          // Используем response.status из Python для сообщения
+          this.toastService.show(response.status || 'Registration successful! Please login.', 'success');
+          // Редирект на логин, так как куки нет
+          this.router.navigate(['/login']);
+        }),
+      ),
+    { dispatch: false },
+  );
+
+  signupFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.signupFailure),
+        tap(({ error }) => {
+          const fastApiError = error as FastAPIError;
+          if (fastApiError.detail && typeof fastApiError.detail === 'string') {
+            this.toastService.show(fastApiError.detail, 'error');
+          }
+        }),
+      ),
+    { dispatch: false },
+  );
 
   logout$ = createEffect(() =>
     this.actions$.pipe(
@@ -123,7 +164,6 @@ export class AuthEffects {
     { dispatch: false },
   );
 
-  // ... (CheckAuth эффекты без изменений) ...
   checkAuth$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.checkAuth),
