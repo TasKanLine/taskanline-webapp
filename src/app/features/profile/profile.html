@@ -38,6 +38,13 @@
         <span class="text-sm font-medium">Phone</span>
         <span class="text-sm font-medium">{{ user()?.phone_number }}</span>
       </div>
+      } @else {
+      <div
+        class="flex items-center justify-between bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-lg p-3 transition-colors duration-300"
+      >
+        <span class="text-sm font-medium">Phone</span>
+        <span class="text-sm font-medium">Not Provided</span>
+      </div>
       }
     </div>
 
