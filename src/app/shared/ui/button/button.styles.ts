@@ -1,7 +1,7 @@
 export const BUTTON_BASE_CLASSES = 'ui-btn';
 
 export const SOLID_COLORS: Record<string, string> = {
-  primary: 'text-black bg-white border-transparent focus-visible:ring-blue-500',
+  primary: 'text-white bg-teal-700 border-transparent focus-visible:ring-blue-500',
   secondary: 'text-white bg-zinc-800 border-transparent focus-visible:ring-gray-200',
   success: 'text-black bg-emerald-500 border-transparent focus-visible:ring-emerald-500',
   info: 'text-black bg-sky-400 border-transparent ui-btn hover-gradient-glide',
@@ -11,7 +11,7 @@ export const SOLID_COLORS: Record<string, string> = {
   contrast: 'text-black bg-white border-transparent',
 };
 export const OUTLINED_COLORS: Record<string, string> = {
-  primary: 'bg-transparent border-white text-white hover:bg-black/10',
+  primary: 'bg-transparent border-teal-700 text-teal-700 hover:bg-teal-700/10',
   secondary: 'bg-transparent border-zinc-500 text-zinc-500 hover:bg-zinc-500/10',
   success: 'bg-transparent border-emerald-600 text-emerald-600 hover:bg-emerald-600/10',
   info: 'bg-transparent border-sky-500 text-sky-600 hover:bg-sky-600/10',
@@ -22,7 +22,7 @@ export const OUTLINED_COLORS: Record<string, string> = {
 };
 
 export const TEXT_COLORS: Record<string, string> = {
-  primary: 'bg-transparent border-transparent text-white hover:bg-black/10',
+  primary: 'bg-transparent border-transparent text-teal-700 hover:bg-teal-700/10',
   secondary: 'bg-transparent border-transparent text-zinc-500 hover:bg-zinc-500/10',
   success: 'bg-transparent border-transparent text-emerald-600 hover:bg-emerald-600/10',
   info: 'bg-transparent border-transparent text-sky-600 hover:bg-sky-600/10',
