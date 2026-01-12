@@ -14,25 +14,25 @@ import { animate, style, transition, trigger } from '@angular/animations';
           [@toastAnimation]
           class="pointer-events-auto relative overflow-hidden bg-zinc-900 border border-zinc-800 rounded-lg shadow-lg p-4 flex items-start gap-3"
           [class.border-l-4]="true"
-          [class.border-emerald-500]="toast.type === 'success'"
-          [class.border-rose-500]="toast.type === 'error'"
-          [class.border-sky-400]="toast.type === 'info'"
-          [class.border-amber-500]="toast.type === 'warning'"
+          [class.border-[var(--success-color)]]="toast.type === 'success'"
+          [class.border-[var(--error-color)]]="toast.type === 'error'"
+          [class.border-[var(--info-color)]]="toast.type === 'info'"
+          [class.border-[var(--warning-color)]]="toast.type === 'warning'"
         >
           <!-- Icon -->
           <div class="mt-0.5 shrink-0">
             @switch (toast.type) {
               @case ('success') {
-                <lucide-icon [img]="CheckCircle" class="w-5 h-5 text-emerald-500"></lucide-icon>
+                <lucide-icon [img]="CheckCircle" class="w-5 h-5 text-[var(--success-color)]"></lucide-icon>
               }
               @case ('error') {
-                <lucide-icon [img]="AlertCircle" class="w-5 h-5 text-rose-500"></lucide-icon>
+                <lucide-icon [img]="AlertCircle" class="w-5 h-5 text-[var(--error-color)]"></lucide-icon>
               }
               @case ('info') {
-                <lucide-icon [img]="Info" class="w-5 h-5 text-sky-400"></lucide-icon>
+                <lucide-icon [img]="Info" class="w-5 h-5 text-[var(--info-color)]"></lucide-icon>
               }
               @case ('warning') {
-                <lucide-icon [img]="TriangleAlert" class="w-5 h-5 text-amber-500"></lucide-icon>
+                <lucide-icon [img]="TriangleAlert" class="w-5 h-5 text-[var(--warning-color)]"></lucide-icon>
               }
             }
           </div>
