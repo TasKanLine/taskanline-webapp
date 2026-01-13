@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  taskanline-clinet:
+    build: .
+    container_name: taskanline-client
+    ports:
+      - '8080:80'
+    restart: always
+    networks:
+      - taskanline-client-network
+
+networks:
+  taskanline-client-network:
+    external: true
