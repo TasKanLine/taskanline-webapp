@@ -1,4 +1,4 @@
 export const environment = {
-  production: true,
+  production: false,
   apiUrl: 'http://taskanline-server:8000/api/v1',
 };
