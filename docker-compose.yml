@@ -1,9 +1,9 @@
 version: '3.7'
 
 services:
-  taskanline-clinet:
+  taskanline_clinet:
     build: .
-    container_name: taskanline-client
+    container_name: taskanline_client
     ports:
       - '8080:80'
     restart: always
