@@ -1,7 +1,7 @@
 version: '3.7'
 
 services:
-  taskanline_clinet:
+  taskanline_client:
     build: .
     container_name: taskanline_client
     ports:

@@ -8,6 +8,8 @@ WORKDIR /app
 # Сначала копируем только файлы зависимостей (для кэширования слоев Docker)
 COPY package.json bun.lock ./
 
+RUN bun pm cache clean
+
 # Устанавливаем зависимости (frozen-lockfile гарантирует установку версий из bun.lock)
 RUN bun install --frozen-lockfile
 
