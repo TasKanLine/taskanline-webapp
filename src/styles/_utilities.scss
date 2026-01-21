@@ -1,3 +1,5 @@
+@use 'helpers' as *;
+
 @layer utilities {
   .hover-gradient-wave {
     position: relative;
@@ -114,5 +116,27 @@
 
   .hover-gradient-glide:hover::after {
     transform: translateX(130%) skewX(-6deg);
+  }
+}
+
+.container {
+  max-width: calc(var(--container-width) + var(--container-padding-x) * 2);
+  margin-inline: auto;
+  padding-inline: var(--container-padding-x);
+}
+
+.visually-hidden {
+  @include visually-hidden;
+}
+
+.hidden-mobile {
+  @include mobile {
+    display: none !important;
+  }
+}
+
+.visible-mobile {
+  @include mobile-above {
+    display: none !important;
   }
 }

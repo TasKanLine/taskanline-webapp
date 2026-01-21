@@ -20,6 +20,20 @@
   --success-color: #66800b;
   --info-color: #205ea6;
   --help-color: #5e409d;
+
+  --font-family-base: 'IBM Plex Sans', Georgia, sans-serif;
+  --font-family-accent: 'IBM Plex Serif', Georgia, serif;
+  --font-weight-base: 500;
+  --font-weight-bold: 700;
+
+  --container-width: #{rem(1600)};
+  --container-padding-x: #{rem(16)};
+
+  --transition-duration: 0.2s;
+
+  @include laptop {
+    --container-width: #{rem(1280)};
+  }
 }
 
 .dark {

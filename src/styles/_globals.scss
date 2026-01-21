@@ -1,14 +1,80 @@
 @use 'helpers' as *;
 
+body {
+  @include fluid-text(18, 14);
+
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-base);
+
+  letter-spacing: -0.03em;
+}
+
 h1,
 h2,
 h3 {
-  font-family: 'IBM Plex Serif', Georgia, serif;
-  font-weight: 700;
+  font-family: var(--font-family-accent);
+  font-weight: var(--font-weight-bold);
 }
 
 h4,
 h5 {
-  font-family: 'IBM Plex Serif', Georgia, serif;
-  font-weight: 500;
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-base);
+}
+
+h1,
+.h1 {
+  @include fluid-text(70, 30);
+
+  line-height: 1.2;
+}
+
+h2,
+.h2 {
+  @include fluid-text(58, 28);
+
+  line-height: 1.3;
+}
+
+h3,
+.h3 {
+  @include fluid-text(40, 24);
+}
+
+h4,
+.h4 {
+  @include fluid-text(26, 18);
+}
+
+h5,
+.h5 {
+  @include fluid-text(24, 18);
+}
+
+a,
+button,
+input,
+textarea,
+select,
+svg * {
+  transition-duration: var(--transition-duration);
+}
+
+a {
+  color: inherit;
+
+  @include hover {
+    color: var(--color-primary);
+  }
+
+  &[class] {
+    text-decoration: none;
+  }
+}
+
+:focus-visible {
+  outline: rem(2) dashed var(--color-primary);
+  outline-offset: rem(4);
+
+  transition-duration: 0s !important;
 }
