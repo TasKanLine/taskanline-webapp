@@ -1,59 +1,202 @@
-# Client
+# 🎯 TasKanLine Client
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.1.
+## 📝 Описание проекта
 
-## Development server
+TasKanLine Client - современное фронтенд-приложение для управления задачами, построенное на Angular 21 с использованием передовых архитектурных паттернов. Приложение обеспечивает полноценную аутентификацию пользователей, интуитивный интерфейс и реактивное взаимодействие с backend-сервисом.
 
-To start a local development server, run:
+## 🔍 Краткий обзор
+
+### 🚀 Ключевые возможности
+
+- **Аутентификация**: Полноценная система регистрации и входа с защитой маршрутов
+- **Темизация**: Поддержка светлой/темной темы с переключателем
+- **Реактивность**: Signals-based архитектура для мгновенного обновления UI
+- **Ошибка обработки**: Глобальная обработка ошибок с информативными страницами
+- **Адаптивность**: Полностью респонсивный дизайн для всех устройств
+
+### 🎨 Основные фичи
+
+- Формы входа/регистрации с валидацией
+- Персональный профиль пользователя
+- Справочная система с ленивой загрузкой
+- Уведомления (Toast) для пользовательского фидбэка
+- Защищенные маршруты с guards
+
+## 🛠 Стек технологий
+
+### Frontend
+
+- ⚡ **Angular 21.1.0** - Modern standalone components architecture
+- 🔄 **NgRx 21.0.1** - State management с effects и devtools
+- 🎨 **TailwindCSS 4.1.18** - Utility-first CSS фреймворк
+- 📦 **TypeScript 5.9.3** - Статическая типизация
+- 🧪 **Vitest 4.0.17** - Современное тестирование
+- 🎭 **Lucide Icons 0.555.0** - Иконки
+
+### Build & Deployment
+
+- 🥟 **Bun** - Package manager & build tool (опционально)
+- 📦 **npm 11.6.2** - Package manager по умолчанию
+- 🐳 **Docker** - Контейнеризация для production
+- 🌐 **Nginx** - Web сервер для развертывания
+
+### Development Tools
+
+- 🔍 **ESLint** - Линтинг кода
+- 🎨 **Prettier** - Форматирование кода
+- 🧪 **Vitest** - Unit тестирование
+- 📱 **Angular DevTools** - Debugging и профилирование
+
+## 🚀 Установка и запуск
+
+### Предварительные требования
+
+- **Node.js** 22.20.0 или выше
+- **npm** 11.6.2+ (рекомендуется **Bun** для лучшей производительности)
+- **Git** для клонирования репозитория
+
+### Шаги установки
+
+1. **Клонирование репозитория**
+
+   ```bash
+   git clone <repository-url>
+   cd TasKanLine/client
+   ```
+
+2. **Установка зависимостей**
+
+   ```bash
+   # Используя npm
+   npm install
+
+   # Или используя Bun (рекомендуется)
+   bun install
+   ```
+
+3. **Настройка окружения**
+
+   ```bash
+   # Создать файл окружения из шаблона (если есть)
+   cp .env.example .env
+
+   # Настроить API endpoints и другие переменные
+   nano .env
+   ```
+
+4. **Запуск dev сервера**
+
+   ```bash
+   # Используя npm
+   npm run s
+
+   # Используя Bun
+   bun run s
+   ```
+
+Приложение будет доступно по адресу: `http://localhost:4200`
+
+### Команды разработки
 
 ```bash
-ng serve
+# Запуск dev сервера
+npm run s                    # или bun run s
+
+# Production сборка
+npm run build               # или bun run build
+
+# Запуск тестов
+npm test                    # или bun test
+
+# Проверка кода (linting)
+npm run lint                # или bun run lint
+
+# Автоисправление lint ошибок
+npm run lint:fix            # или bun run lint:fix
+
+# Форматирование кода
+npm run prettier            # или bun run prettier
+
+# Наблюдение за изменениями
+npm run watch               # или bun run watch
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 🐳 Docker
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Сборка Docker образа
 
 ```bash
-ng generate component component-name
+docker build -t taskanline-client .
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Запуск контейнера
 
 ```bash
-ng generate --help
+docker run -p 80:80 taskanline-client
 ```
 
-## Building
-
-To build the project run:
+### Использование docker-compose (если доступно)
 
 ```bash
-ng build
+docker-compose up -d
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## 💡 Использование
 
-## Running unit tests
+### Основные пользовательские сценарии
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+1. **Регистрация нового пользователя**
+   - Перейти на `/signup`
+   - Заполнить форму регистрации
+   - Подтвердить email (если настроено)
 
-```bash
-ng test
-```
+2. **Вход в систему**
+   - Перейти на `/login`
+   - Ввести email и пароль
+   - Опционально: "Запомнить меня"
 
-## Running end-to-end tests
+3. **Работа с профилем**
+   - После входа доступен профиль пользователя по `/profile`
+   - Возможность редактирования личных данных
 
-For end-to-end (e2e) testing, run:
+4. **Переключение темы**
+   - Использовать toggle в header для смены светлой/темной темы
+   - Настройки сохраняются в localStorage
 
-```bash
-ng e2e
-```
+### API интеграция
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Приложение автоматически интегрируется с backend API через HTTP interceptors для:
 
-## Additional Resources
+- Аутентификации (автоматическая подстановка токенов)
+- Обработки ошибок (единый формат ошибок)
+- Логирования запросов/ответов
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 📚 Документация
+
+Подробная документация доступна в директории [`docs/`](./docs/):
+
+- [Установка](./docs/installation.md) - Детальное руководство по настройке
+- [Использование](./docs/usage.md) - Примеры использования компонентов
+- [Архитектура](./docs/architecture/arch-rules.md) - Правила и принципы
+- [Contributing](./docs/contributing.md) - Гайд для разработчиков
+
+## 🤝 Contributing
+
+Мы приветствуем вклад в проект! Пожалуйста, ознакомьтесь с нашим [гайдом для контрибьюторов](./docs/contributing.md).
+
+### Ключевые принципы
+
+- Следовать [architectural rules](./docs/architecture/arch-rules.md)
+- Использовать conventional commits
+- Писать тесты для новой функциональности
+- Проверять код перед PR: `npm run lint && npm test`
+
+## 📄 Лицензия
+
+(Если применимо - добавить информацию о лицензии)
+
+---
+
+**Happy Coding!** 🎉
+
+Если у вас есть вопросы или проблемы, создайте [issue](../../issues) в репозитории.
