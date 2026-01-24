@@ -1,39 +1,37 @@
-# 🤖 AGENTS.md - AI Context Entry Point
+# Repository Guidelines
 
-> **STOP! READ THIS FIRST.**
-> This file is your map to this codebase. Do not guess patterns. Follow the documentation below.
+## Project Structure & Module Organization
+- `src/app/` holds Angular code, split into `core/` (singletons), `features/` (domain pages), `shared/` (dumb UI), and `layout/` (wrappers). Use absolute imports like `@core/...`.
+- `src/environments/` contains environment configs. Entry points live in `src/main.ts` and `src/index.html`.
+- Static assets live in `public/`. Build output goes to `dist/`.
+- Tests are colocated as `*.spec.ts` files (e.g., `src/app/features/login/login.spec.ts`).
 
-## ⚡ Quick Start (Critical Rules)
-1.  **Framework**: Angular 21 (Standalone Components). **NO NgModules**.
-2.  **State**: NgRx (Global) + Signals (Local). **ChangeDetectionStrategy.OnPush** is MANDATORY.
-3.  **Styling**: TailwindCSS 4 (Utility-first) + SCSS Modules (Rare exceptions).
-4.  **Tests**: Vitest. NO Jasmine/Karma.
+## Build, Test, and Development Commands
+- `bun run s` (or `npm run s`): start dev server.
+- `bun run build`: production build.
+- `bun run watch`: rebuild on file changes.
+- `bun test` (Vitest runner): run unit tests.
+- `bun run lint` / `bun run lint:fix`: lint and auto-fix issues.
+- `bun run prettier`: format the codebase.
 
-## 📚 Documentation Index
+## Coding Style & Naming Conventions
+- TypeScript strict mode; 2-space indentation; Prettier defaults (semi, single quotes, print width 100).
+- Standalone components only, `ChangeDetectionStrategy.OnPush` required, DI via `inject()`.
+- Signals for local state and inputs (`input()`/`output()`), NgRx for global state.
+- Use Tailwind 4 utilities; SCSS only for exceptions.
+- Naming: `user-profile.component.ts`, class `UserProfileComponent`, selector `app-user-profile`.
 
-### 1. 🤖 AI Context (`docs/ai-context/`)
-**MUST READ for every task.**
-- [👉 **active-context.md**](docs/ai-context/active-context.md) - **WHAT WE ARE DOING RIGHT NOW**. Check this first.
-- [system-patterns.md](docs/ai-context/system-patterns.md) - Strict coding rules, boilerplate, and "Do/Don't".
-- [tech-stack.md](docs/ai-context/tech-stack.md) - Exact versions of dependencies.
+## Testing Guidelines
+- Framework: Vitest + Angular TestBed. Prefer `describe/it` from Vitest.
+- Keep tests colocated with source; use `*.spec.ts` naming.
+- Run focused tests with `bun test -- src/app/features/login/login.spec.ts`.
 
-### 2. 🏗 Architecture (`docs/architecture/`)
-**Read when creating files or changing logic.**
-- [file-structure.md](docs/architecture/file-structure.md) - Where to put your new file (`@core` vs `@feature` vs `@shared`).
-- [data-flow.md](docs/architecture/data-flow.md) - How to use NgRx and Signals together.
+## Commit & Pull Request Guidelines
+- Conventional Commits: `feat(auth): add login form`.
+- Before PR: `bun run lint`, `bun test`, `bun run build`.
+- PRs should include a clear description, linked issues, and screenshots for UI changes.
 
-### 3. 🧠 Product (`docs/product/`)
-**Read to understand "Why" and "What".**
-- [domain-language.md](docs/product/domain-language.md) - What is a "Lane"? What is a "Task"?
-- [vision.md](docs/product/vision.md) - Overall goals.
-
-### 4. 👤 Guides (`docs/guides/`)
-Legacy documentation and human-oriented guides (Installation, manual testing).
-
----
-
-## 🛠 Common Tasks Shortcuts
-
-- **Start Dev Server**: `bun run s`
-- **Run Tests**: `bun test`
-- **Lint**: `bun run lint`
+## Agent-Specific Instructions
+- Read `docs/ai-context/active-context.md` first.
+- Follow `docs/ai-context/system-patterns.md` for strict Angular, state, and styling rules.
+- Use `docs/architecture/file-structure.md` to place new files correctly.

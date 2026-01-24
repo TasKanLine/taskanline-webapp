@@ -1,2 +1,26 @@
 @import 'tailwindcss';
 @import './styles/index';
+
+@theme {
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-btn-primary: var(--text-btn-primary);
+
+  --color-primary: var(--color-primary);
+  --color-initial-bg-secondary: var(--color-initial-bg-secondary);
+  --color-initial-text-secondary: var(--color-initial-text-secondary);
+
+  --color-border-color: var(--border-color);
+  --color-input-border: var(--input-border-color);
+
+  --color-error: var(--error-color);
+  --color-warning: var(--warning-color);
+  --color-success: var(--success-color);
+  --color-info: var(--info-color);
+  --color-help: var(--help-color);
+
+  --font-sans: var(--font-family-base);
+  --font-serif: var(--font-family-accent);
+}

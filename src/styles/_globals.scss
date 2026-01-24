@@ -63,8 +63,10 @@ svg * {
 a {
   color: inherit;
 
-  @include hover {
-    color: var(--color-primary);
+  @media (hover: hover) {
+    &:hover {
+      color: var(--color-primary);
+    }
   }
 
   &[class] {

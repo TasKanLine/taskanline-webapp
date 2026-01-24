@@ -2,389 +2,399 @@
   <app-theme-switcher></app-theme-switcher>
 </div>
 
-<div class="p-10 max-w-5xl mx-auto space-y-10">
-  <div class="border-b border-[--border-color] pb-4">
-    <h1 class="text-3xl font-bold font-serif mb-2">UI Kit / Design System</h1>
-    <p>Обзор базовых компонентов системы</p>
+<div
+  class="min-h-screen flex items-center justify-center p-4 bg-bg-primary text-text-primary transition-colors duration-300"
+>
+  <div class="p-10 max-w-5xl mx-auto space-y-10">
+    <div class="border-b border-[--border-color] pb-4">
+      <h2 class="mb-2">UI Kit / Design System</h2>
+      <p>Обзор базовых компонентов системы</p>
+    </div>
+
+    <section class="space-y-6 grid grid-cols-1 gap-y-6">
+      <h3 class="flex items-center">Button</h3>
+
+      <div class="space-y-2">
+        <h3>Severity</h3>
+        <div class="flex flex-wrap items-center gap-4 relative top-3">
+          <button appButton severity="primary">Primary</button>
+          <button appButton severity="secondary">Secondary</button>
+          <button appButton severity="success">Success</button>
+          <button appButton severity="info">Info</button>
+          <button appButton severity="warning">Warning</button>
+          <button appButton severity="help">Help</button>
+          <button appButton severity="danger">Danger</button>
+          <button appButton severity="contrast">Contrast</button>
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <h3>Rounded</h3>
+        <div class="flex flex-wrap items-center gap-4 relative top-3">
+          <button appButton severity="primary" [rounded]="true">Primary</button>
+          <button appButton severity="secondary" [rounded]="true">Secondary</button>
+          <button appButton severity="success" [rounded]="true">Success</button>
+          <button appButton severity="info" [rounded]="true">Info</button>
+          <button appButton severity="warning" [rounded]="true">Warning</button>
+          <button appButton severity="help" [rounded]="true">Help</button>
+          <button appButton severity="danger" [rounded]="true">Danger</button>
+          <button appButton severity="contrast" [rounded]="true">Contrast</button>
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <h3>Raised</h3>
+        <div class="flex flex-wrap items-center gap-4 relative top-3">
+          <button appButton variant="raised" severity="primary">Primary</button>
+          <button appButton variant="raised" severity="secondary">Secondary</button>
+          <button appButton variant="raised" severity="success">Success</button>
+          <button appButton variant="raised" severity="info">Info</button>
+          <button appButton variant="raised" severity="warning">Warning</button>
+          <button appButton variant="raised" severity="help">Help</button>
+          <button appButton variant="raised" severity="danger">Danger</button>
+          <button appButton variant="raised" severity="contrast">Contrast</button>
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <h3>Outlined</h3>
+        <div class="flex flex-wrap items-center gap-4 relative top-3">
+          <button appButton variant="outlined" severity="primary">Primary</button>
+          <button appButton variant="outlined" severity="secondary">Secondary</button>
+          <button appButton variant="outlined" severity="success">Success</button>
+          <button appButton variant="outlined" severity="info">Info</button>
+          <button appButton variant="outlined" severity="warning">Warning</button>
+          <button appButton variant="outlined" severity="help">Help</button>
+          <button appButton variant="outlined" severity="danger">Danger</button>
+          <button appButton variant="outlined" severity="contrast">Contrast</button>
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <h3>Loading</h3>
+
+        <div class="flex flex-wrap items-center gap-4 relative top-3">
+          <button
+            appButton
+            severity="success"
+            variant="outlined"
+            [icon]="Icons.Check"
+            [loading]="isLoading()"
+            (click)="simulateRequest()"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <h3>Disabled</h3>
+
+        <div class="flex flex-wrap items-center gap-4 relative top-3">
+          <button appButton severity="secondary" [disabled]="true">Submit</button>
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <h3>Text / Ghost</h3>
+        <div class="flex flex-wrap items-center gap-4 relative top-3">
+          <button appButton variant="text" severity="primary">Primary</button>
+          <button appButton variant="text" severity="secondary">Secondary</button>
+          <button appButton variant="text" severity="success">Success</button>
+          <button appButton variant="text" severity="info">Info</button>
+          <button appButton variant="text" severity="warning">Warning</button>
+          <button appButton variant="text" severity="help">Help</button>
+          <button appButton variant="text" severity="danger">Danger</button>
+          <button appButton variant="text" severity="contrast">Contrast</button>
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <h3>Raised Text</h3>
+        <div class="flex flex-wrap items-center gap-4 relative top-3">
+          <button appButton variant="raised-text" severity="primary">Primary</button>
+          <button appButton variant="raised-text" severity="secondary">Secondary</button>
+          <button appButton variant="raised-text" severity="success">Success</button>
+          <button appButton variant="raised-text" severity="info">Info</button>
+          <button appButton variant="raised-text" severity="warning">Warning</button>
+          <button appButton variant="raised-text" severity="help">Help</button>
+          <button appButton variant="raised-text" severity="danger">Danger</button>
+          <button appButton variant="raised-text" severity="contrast">Contrast</button>
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <h3>Sizes</h3>
+        <div class="flex flex-wrap items-center gap-4 relative top-3">
+          <button appButton severity="success" size="large">Large Round</button>
+          <button appButton severity="secondary" size="medium">Normal Round</button>
+          <button appButton severity="primary" size="small">Small Round</button>
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <h3>With Icons</h3>
+        <div class="flex flex-wrap items-center gap-4 relative top-3">
+          <button appButton severity="primary" [icon]="Icons.Save">Save Changes</button>
+
+          <button appButton severity="secondary" variant="outlined" [icon]="Icons.Pointer" iconPos="right">
+            Next Step
+          </button>
+
+          <button appButton severity="success" size="small" [icon]="Icons.Save">Small</button>
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <h3>Icon Only</h3>
+        <div class="flex flex-wrap items-center gap-4 mb-6">
+          <button appButton severity="primary" [icon]="Icons.Check" [iconOnly]="true" aria-label="Check"></button>
+          <button
+            appButton
+            severity="secondary"
+            [icon]="Icons.Bookmark"
+            [iconOnly]="true"
+            aria-label="Bookmark"
+          ></button>
+          <button appButton severity="success" [icon]="Icons.Search" [iconOnly]="true" aria-label="Search"></button>
+          <button appButton severity="info" [icon]="Icons.User" [iconOnly]="true" aria-label="User"></button>
+          <button appButton severity="warning" [icon]="Icons.Bell" [iconOnly]="true" aria-label="Bell"></button>
+          <button appButton severity="help" [icon]="Icons.Heart" [iconOnly]="true" aria-label="Heart"></button>
+          <button appButton severity="danger" [icon]="Icons.X" [iconOnly]="true" aria-label="Close"></button>
+        </div>
+        <div class="flex flex-wrap items-center gap-4 mb-6">
+          <button
+            appButton
+            severity="primary"
+            [icon]="Icons.Check"
+            [iconOnly]="true"
+            [rounded]="true"
+            aria-label="Check"
+          ></button>
+          <button
+            appButton
+            severity="secondary"
+            [icon]="Icons.Bookmark"
+            [iconOnly]="true"
+            [rounded]="true"
+            aria-label="Bookmark"
+          ></button>
+          <button
+            appButton
+            severity="success"
+            [icon]="Icons.Search"
+            [iconOnly]="true"
+            [rounded]="true"
+            aria-label="Search"
+          ></button>
+          <button
+            appButton
+            severity="info"
+            [icon]="Icons.User"
+            [iconOnly]="true"
+            [rounded]="true"
+            aria-label="User"
+          ></button>
+          <button
+            appButton
+            severity="warning"
+            [icon]="Icons.Bell"
+            [iconOnly]="true"
+            [rounded]="true"
+            aria-label="Bell"
+          ></button>
+          <button
+            appButton
+            severity="help"
+            [icon]="Icons.Heart"
+            [iconOnly]="true"
+            [rounded]="true"
+            aria-label="Heart"
+          ></button>
+          <button
+            appButton
+            severity="danger"
+            [icon]="Icons.X"
+            [iconOnly]="true"
+            [rounded]="true"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="flex flex-wrap items-center gap-4 mb-6">
+          <button
+            appButton
+            severity="primary"
+            [icon]="Icons.Check"
+            [iconOnly]="true"
+            [rounded]="true"
+            variant="outlined"
+            aria-label="Check"
+          ></button>
+          <button
+            appButton
+            severity="secondary"
+            [icon]="Icons.Bookmark"
+            [iconOnly]="true"
+            [rounded]="true"
+            variant="outlined"
+            aria-label="Bookmark"
+          ></button>
+          <button
+            appButton
+            severity="success"
+            [icon]="Icons.Search"
+            [iconOnly]="true"
+            [rounded]="true"
+            variant="outlined"
+            aria-label="Search"
+          ></button>
+          <button
+            appButton
+            severity="info"
+            [icon]="Icons.User"
+            [iconOnly]="true"
+            [rounded]="true"
+            variant="outlined"
+            aria-label="User"
+          ></button>
+          <button
+            appButton
+            severity="warning"
+            [icon]="Icons.Bell"
+            [iconOnly]="true"
+            [rounded]="true"
+            variant="outlined"
+            aria-label="Bell"
+          ></button>
+          <button
+            appButton
+            severity="help"
+            [icon]="Icons.Heart"
+            [iconOnly]="true"
+            [rounded]="true"
+            variant="outlined"
+            aria-label="Heart"
+          ></button>
+          <button
+            appButton
+            severity="danger"
+            [icon]="Icons.X"
+            [iconOnly]="true"
+            [rounded]="true"
+            variant="outlined"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="flex flex-wrap items-center gap-4">
+          <button
+            appButton
+            severity="primary"
+            [icon]="Icons.Check"
+            [iconOnly]="true"
+            [rounded]="true"
+            variant="text"
+            aria-label="Check"
+          ></button>
+          <button
+            appButton
+            severity="secondary"
+            [icon]="Icons.Bookmark"
+            [iconOnly]="true"
+            [rounded]="true"
+            variant="text"
+            aria-label="Bookmark"
+          ></button>
+          <button
+            appButton
+            severity="success"
+            [icon]="Icons.Search"
+            [iconOnly]="true"
+            [rounded]="true"
+            variant="text"
+            aria-label="Search"
+          ></button>
+          <button
+            appButton
+            severity="info"
+            [icon]="Icons.User"
+            [iconOnly]="true"
+            [rounded]="true"
+            variant="text"
+            aria-label="User"
+          ></button>
+          <button
+            appButton
+            severity="warning"
+            [icon]="Icons.Bell"
+            [iconOnly]="true"
+            [rounded]="true"
+            variant="text"
+            aria-label="Bell"
+          ></button>
+          <button
+            appButton
+            severity="help"
+            [icon]="Icons.Heart"
+            [iconOnly]="true"
+            [rounded]="true"
+            variant="text"
+            aria-label="Heart"
+          ></button>
+          <button
+            appButton
+            severity="danger"
+            [icon]="Icons.X"
+            [iconOnly]="true"
+            [rounded]="true"
+            variant="text"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <h3>Icon Examples</h3>
+        <div class="flex flex-wrap items-center gap-4 relative top-3">
+          <button appButton severity="primary" [icon]="Icons.Search" [iconOnly]="true" aria-label="Search"></button>
+
+          <button
+            appButton
+            severity="secondary"
+            [rounded]="true"
+            [icon]="Icons.Search"
+            [iconOnly]="true"
+            aria-label="Search"
+          ></button>
+
+          <button
+            appButton
+            severity="danger"
+            variant="outlined"
+            [rounded]="true"
+            [icon]="Icons.Trash2"
+            [iconOnly]="true"
+            aria-label="Delete"
+          ></button>
+
+          <button
+            appButton
+            severity="contrast"
+            size="small"
+            [icon]="Icons.Pointer"
+            [iconOnly]="true"
+            aria-label="Pointer"
+          ></button>
+          <button
+            appButton
+            severity="contrast"
+            size="large"
+            [rounded]="true"
+            [icon]="Icons.Pointer"
+            [iconOnly]="true"
+            aria-label="Pointer"
+          ></button>
+        </div>
+      </div>
+    </section>
   </div>
-
-  <section class="space-y-6 grid grid-cols-1 gap-y-6">
-    <h2 class="text-2xl font-bold flex items-center">Button</h2>
-
-    <div class="space-y-2">
-      <h3 class="text-sm uppercase tracking-wider">Severity</h3>
-      <div class="flex flex-wrap items-center gap-4 relative top-3">
-        <button appButton severity="primary">Primary</button>
-        <button appButton severity="secondary">Secondary</button>
-        <button appButton severity="success">Success</button>
-        <button appButton severity="info">Info</button>
-        <button appButton severity="warning">Warning</button>
-        <button appButton severity="help">Help</button>
-        <button appButton severity="danger">Danger</button>
-        <button appButton severity="contrast">Contrast</button>
-      </div>
-    </div>
-
-    <div class="space-y-2">
-      <h3 class="text-sm uppercase tracking-wider">Rounded</h3>
-      <div class="flex flex-wrap items-center gap-4 relative top-3">
-        <button appButton severity="primary" [rounded]="true">Primary</button>
-        <button appButton severity="secondary" [rounded]="true">Secondary</button>
-        <button appButton severity="success" [rounded]="true">Success</button>
-        <button appButton severity="info" [rounded]="true">Info</button>
-        <button appButton severity="warning" [rounded]="true">Warning</button>
-        <button appButton severity="help" [rounded]="true">Help</button>
-        <button appButton severity="danger" [rounded]="true">Danger</button>
-        <button appButton severity="contrast" [rounded]="true">Contrast</button>
-      </div>
-    </div>
-
-    <div class="space-y-2">
-      <h3 class="text-sm uppercase tracking-wider">Raised</h3>
-      <div class="flex flex-wrap items-center gap-4 relative top-3">
-        <button appButton variant="raised" severity="primary">Primary</button>
-        <button appButton variant="raised" severity="secondary">Secondary</button>
-        <button appButton variant="raised" severity="success">Success</button>
-        <button appButton variant="raised" severity="info">Info</button>
-        <button appButton variant="raised" severity="warning">Warning</button>
-        <button appButton variant="raised" severity="help">Help</button>
-        <button appButton variant="raised" severity="danger">Danger</button>
-        <button appButton variant="raised" severity="contrast">Contrast</button>
-      </div>
-    </div>
-
-    <div class="space-y-2">
-      <h3 class="text-sm uppercase tracking-wider">Outlined</h3>
-      <div class="flex flex-wrap items-center gap-4 relative top-3">
-        <button appButton variant="outlined" severity="primary">Primary</button>
-        <button appButton variant="outlined" severity="secondary">Secondary</button>
-        <button appButton variant="outlined" severity="success">Success</button>
-        <button appButton variant="outlined" severity="info">Info</button>
-        <button appButton variant="outlined" severity="warning">Warning</button>
-        <button appButton variant="outlined" severity="help">Help</button>
-        <button appButton variant="outlined" severity="danger">Danger</button>
-        <button appButton variant="outlined" severity="contrast">Contrast</button>
-      </div>
-    </div>
-
-    <div class="space-y-2">
-      <h2 class="text-sm uppercase tracking-wider">Loading</h2>
-
-      <div class="flex flex-wrap items-center gap-4 relative top-3">
-        <button
-          appButton
-          severity="success"
-          variant="outlined"
-          [icon]="Icons.Check"
-          [loading]="isLoading()"
-          (click)="simulateRequest()"
-        >
-          Submit
-        </button>
-      </div>
-    </div>
-
-    <div class="space-y-2">
-      <h2 class="text-sm uppercase tracking-wider">Disabled</h2>
-
-      <div class="flex flex-wrap items-center gap-4 relative top-3">
-        <button appButton severity="secondary" [disabled]="true">Submit</button>
-      </div>
-    </div>
-
-    <div class="space-y-2">
-      <h3 class="text-sm uppercase tracking-wider">Text / Ghost</h3>
-      <div class="flex flex-wrap items-center gap-4 relative top-3">
-        <button appButton variant="text" severity="primary">Primary</button>
-        <button appButton variant="text" severity="secondary">Secondary</button>
-        <button appButton variant="text" severity="success">Success</button>
-        <button appButton variant="text" severity="info">Info</button>
-        <button appButton variant="text" severity="warning">Warning</button>
-        <button appButton variant="text" severity="help">Help</button>
-        <button appButton variant="text" severity="danger">Danger</button>
-        <button appButton variant="text" severity="contrast">Contrast</button>
-      </div>
-    </div>
-
-    <div class="space-y-2">
-      <h3 class="text-sm uppercase tracking-wider">Raised Text</h3>
-      <div class="flex flex-wrap items-center gap-4 relative top-3">
-        <button appButton variant="raised-text" severity="primary">Primary</button>
-        <button appButton variant="raised-text" severity="secondary">Secondary</button>
-        <button appButton variant="raised-text" severity="success">Success</button>
-        <button appButton variant="raised-text" severity="info">Info</button>
-        <button appButton variant="raised-text" severity="warning">Warning</button>
-        <button appButton variant="raised-text" severity="help">Help</button>
-        <button appButton variant="raised-text" severity="danger">Danger</button>
-        <button appButton variant="raised-text" severity="contrast">Contrast</button>
-      </div>
-    </div>
-
-    <div class="space-y-2">
-      <h3 class="text-sm uppercase tracking-wider">Sizes</h3>
-      <div class="flex flex-wrap items-center gap-4 relative top-3">
-        <button appButton severity="success" size="large">Large Round</button>
-        <button appButton severity="secondary" size="medium">Normal Round</button>
-        <button appButton severity="primary" size="small">Small Round</button>
-      </div>
-    </div>
-
-    <div class="space-y-2">
-      <h3 class="text-sm uppercase tracking-wider">With Icons</h3>
-      <div class="flex flex-wrap items-center gap-4 relative top-3">
-        <button appButton severity="primary" [icon]="Icons.Save">Save Changes</button>
-
-        <button appButton severity="secondary" variant="outlined" [icon]="Icons.Pointer" iconPos="right">
-          Next Step
-        </button>
-
-        <button appButton severity="success" size="small" [icon]="Icons.Save">Small</button>
-      </div>
-    </div>
-
-    <div class="space-y-2">
-      <h3 class="text-sm uppercase tracking-wider">Icon Only</h3>
-      <div class="flex flex-wrap items-center gap-4 mb-6">
-        <button appButton severity="primary" [icon]="Icons.Check" [iconOnly]="true" aria-label="Check"></button>
-        <button appButton severity="secondary" [icon]="Icons.Bookmark" [iconOnly]="true" aria-label="Bookmark"></button>
-        <button appButton severity="success" [icon]="Icons.Search" [iconOnly]="true" aria-label="Search"></button>
-        <button appButton severity="info" [icon]="Icons.User" [iconOnly]="true" aria-label="User"></button>
-        <button appButton severity="warning" [icon]="Icons.Bell" [iconOnly]="true" aria-label="Bell"></button>
-        <button appButton severity="help" [icon]="Icons.Heart" [iconOnly]="true" aria-label="Heart"></button>
-        <button appButton severity="danger" [icon]="Icons.X" [iconOnly]="true" aria-label="Close"></button>
-      </div>
-      <div class="flex flex-wrap items-center gap-4 mb-6">
-        <button
-          appButton
-          severity="primary"
-          [icon]="Icons.Check"
-          [iconOnly]="true"
-          [rounded]="true"
-          aria-label="Check"
-        ></button>
-        <button
-          appButton
-          severity="secondary"
-          [icon]="Icons.Bookmark"
-          [iconOnly]="true"
-          [rounded]="true"
-          aria-label="Bookmark"
-        ></button>
-        <button
-          appButton
-          severity="success"
-          [icon]="Icons.Search"
-          [iconOnly]="true"
-          [rounded]="true"
-          aria-label="Search"
-        ></button>
-        <button
-          appButton
-          severity="info"
-          [icon]="Icons.User"
-          [iconOnly]="true"
-          [rounded]="true"
-          aria-label="User"
-        ></button>
-        <button
-          appButton
-          severity="warning"
-          [icon]="Icons.Bell"
-          [iconOnly]="true"
-          [rounded]="true"
-          aria-label="Bell"
-        ></button>
-        <button
-          appButton
-          severity="help"
-          [icon]="Icons.Heart"
-          [iconOnly]="true"
-          [rounded]="true"
-          aria-label="Heart"
-        ></button>
-        <button
-          appButton
-          severity="danger"
-          [icon]="Icons.X"
-          [iconOnly]="true"
-          [rounded]="true"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="flex flex-wrap items-center gap-4 mb-6">
-        <button
-          appButton
-          severity="primary"
-          [icon]="Icons.Check"
-          [iconOnly]="true"
-          [rounded]="true"
-          variant="outlined"
-          aria-label="Check"
-        ></button>
-        <button
-          appButton
-          severity="secondary"
-          [icon]="Icons.Bookmark"
-          [iconOnly]="true"
-          [rounded]="true"
-          variant="outlined"
-          aria-label="Bookmark"
-        ></button>
-        <button
-          appButton
-          severity="success"
-          [icon]="Icons.Search"
-          [iconOnly]="true"
-          [rounded]="true"
-          variant="outlined"
-          aria-label="Search"
-        ></button>
-        <button
-          appButton
-          severity="info"
-          [icon]="Icons.User"
-          [iconOnly]="true"
-          [rounded]="true"
-          variant="outlined"
-          aria-label="User"
-        ></button>
-        <button
-          appButton
-          severity="warning"
-          [icon]="Icons.Bell"
-          [iconOnly]="true"
-          [rounded]="true"
-          variant="outlined"
-          aria-label="Bell"
-        ></button>
-        <button
-          appButton
-          severity="help"
-          [icon]="Icons.Heart"
-          [iconOnly]="true"
-          [rounded]="true"
-          variant="outlined"
-          aria-label="Heart"
-        ></button>
-        <button
-          appButton
-          severity="danger"
-          [icon]="Icons.X"
-          [iconOnly]="true"
-          [rounded]="true"
-          variant="outlined"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="flex flex-wrap items-center gap-4">
-        <button
-          appButton
-          severity="primary"
-          [icon]="Icons.Check"
-          [iconOnly]="true"
-          [rounded]="true"
-          variant="text"
-          aria-label="Check"
-        ></button>
-        <button
-          appButton
-          severity="secondary"
-          [icon]="Icons.Bookmark"
-          [iconOnly]="true"
-          [rounded]="true"
-          variant="text"
-          aria-label="Bookmark"
-        ></button>
-        <button
-          appButton
-          severity="success"
-          [icon]="Icons.Search"
-          [iconOnly]="true"
-          [rounded]="true"
-          variant="text"
-          aria-label="Search"
-        ></button>
-        <button
-          appButton
-          severity="info"
-          [icon]="Icons.User"
-          [iconOnly]="true"
-          [rounded]="true"
-          variant="text"
-          aria-label="User"
-        ></button>
-        <button
-          appButton
-          severity="warning"
-          [icon]="Icons.Bell"
-          [iconOnly]="true"
-          [rounded]="true"
-          variant="text"
-          aria-label="Bell"
-        ></button>
-        <button
-          appButton
-          severity="help"
-          [icon]="Icons.Heart"
-          [iconOnly]="true"
-          [rounded]="true"
-          variant="text"
-          aria-label="Heart"
-        ></button>
-        <button
-          appButton
-          severity="danger"
-          [icon]="Icons.X"
-          [iconOnly]="true"
-          [rounded]="true"
-          variant="text"
-          aria-label="Close"
-        ></button>
-      </div>
-    </div>
-
-    <div class="space-y-2">
-      <h3 class="text-sm uppercase tracking-wider">Icon Examples</h3>
-      <div class="flex flex-wrap items-center gap-4 relative top-3">
-        <button appButton severity="primary" [icon]="Icons.Search" [iconOnly]="true" aria-label="Search"></button>
-
-        <button
-          appButton
-          severity="secondary"
-          [rounded]="true"
-          [icon]="Icons.Search"
-          [iconOnly]="true"
-          aria-label="Search"
-        ></button>
-
-        <button
-          appButton
-          severity="danger"
-          variant="outlined"
-          [rounded]="true"
-          [icon]="Icons.Trash2"
-          [iconOnly]="true"
-          aria-label="Delete"
-        ></button>
-
-        <button
-          appButton
-          severity="contrast"
-          size="small"
-          [icon]="Icons.Pointer"
-          [iconOnly]="true"
-          aria-label="Pointer"
-        ></button>
-        <button
-          appButton
-          severity="contrast"
-          size="large"
-          [rounded]="true"
-          [icon]="Icons.Pointer"
-          [iconOnly]="true"
-          aria-label="Pointer"
-        ></button>
-      </div>
-    </div>
-  </section>
 </div>
