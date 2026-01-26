@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
-import { ThemeSwitcherComponent } from '@shared/ui/theme-switcher/theme-switcher';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MainLayoutComponent } from '@layout/main-layout/main-layout';
 
 @Component({
   selector: 'app-home',
-  imports: [ThemeSwitcherComponent],
+  standalone: true,
+  imports: [MainLayoutComponent],
   templateUrl: './home.html',
   styleUrl: './home.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Home {}
