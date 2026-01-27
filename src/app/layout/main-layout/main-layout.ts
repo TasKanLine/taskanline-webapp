@@ -1,14 +1,13 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FooterComponent } from '@layout/footer/footer';
-import { HeaderComponent } from '@layout/header/header';
-import { SidebarComponent } from '@layout/sidebar/sidebar';
+import { Footer } from '@layout/footer/footer';
+import { Header } from '@layout/header/header';
 
 @Component({
   selector: 'app-main-layout',
   standalone: true,
-  imports: [HeaderComponent, SidebarComponent, FooterComponent],
+  imports: [Header, Footer],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MainLayoutComponent {}
+export class MainLayout {}

@@ -4,13 +4,13 @@ import { Store } from '@ngrx/store';
 import { AuthActions } from '@core/auth/store/auth.actions';
 import { selectUser } from '@core/auth/store/auth.reducer';
 import { Button } from '@shared/ui/button/button';
-import { ThemeSwitcherComponent } from '@shared/ui/theme-switcher/theme-switcher';
+import { ThemeSwitcher } from '@shared/ui/theme-switcher/theme-switcher';
 import { LucideAngularModule, LogOut } from 'lucide-angular';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, Button, ThemeSwitcherComponent, LucideAngularModule],
+  imports: [CommonModule, Button, ThemeSwitcher, LucideAngularModule],
   templateUrl: './profile.html',
   styleUrl: './profile.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

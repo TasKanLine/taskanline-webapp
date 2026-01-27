@@ -27,7 +27,7 @@ import { LucideAngularModule, Sun, Moon } from 'lucide-angular';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ThemeSwitcherComponent {
+export class ThemeSwitcher {
   public themeService = inject(ThemeService);
 
   public SunIcon = Sun;

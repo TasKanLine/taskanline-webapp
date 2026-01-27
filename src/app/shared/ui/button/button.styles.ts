@@ -1,4 +1,4 @@
-export const BUTTON_BASE_CLASSES = 'ui-btn';
+export const BUTTON_BASE_CLASSES = 'ui-btn inline-flex items-center gap-3 transition-all';
 
 export const SOLID_COLORS: Record<string, string> = {
   primary: 'text-[var(--text-btn-primary)] bg-[var(--color-primary)] border-transparent focus-visible:ring-blue-500',

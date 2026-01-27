@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { Button } from '@shared/ui/button/button';
-import { ThemeSwitcherComponent } from '@shared/ui/theme-switcher/theme-switcher';
+import { ThemeSwitcher } from '@shared/ui/theme-switcher/theme-switcher';
 import {
   LucideAngularModule,
   Pointer,
@@ -17,7 +17,7 @@ import {
 
 @Component({
   selector: 'app-reference',
-  imports: [ThemeSwitcherComponent, LucideAngularModule, Button],
+  imports: [ThemeSwitcher, LucideAngularModule, Button],
   templateUrl: './reference.html',
   styleUrl: './reference.scss',
 })

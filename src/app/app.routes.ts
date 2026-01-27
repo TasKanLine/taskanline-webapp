@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
 import { Signup } from '@features/signup/signup';
 import { Login } from '@features/login/login';
-import { Home } from '@features/home/home';
 import { guestGuard } from '@core/auth/guards/guest.guard';
 import { authGuard } from '@core/auth/guards/auth.guard';
+import { Welcome } from '@features/welcome/welcome';
 
 export const routes: Routes = [
-  { path: '', component: Home },
+  { path: '', component: Welcome },
   {
     path: '',
     canActivateChild: [guestGuard],
@@ -21,6 +21,7 @@ export const routes: Routes = [
     children: [
       { path: 'reference', loadComponent: () => import('./features/reference/reference').then((m) => m.Reference) },
       { path: 'profile', loadComponent: () => import('./features/profile/profile').then((m) => m.Profile) },
+      { path: 'home', loadComponent: () => import('./features/home/home').then((m) => m.Home) },
     ],
   },
 

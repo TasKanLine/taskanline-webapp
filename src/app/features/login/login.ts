@@ -3,7 +3,7 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { LucideAngularModule, Eye, EyeOff } from 'lucide-angular';
 import { Button } from '@shared/ui/button/button';
-import { ThemeSwitcherComponent } from '@shared/ui/theme-switcher/theme-switcher';
+import { ThemeSwitcher } from '@shared/ui/theme-switcher/theme-switcher';
 import { Store } from '@ngrx/store';
 import { AuthActions } from '@core/auth/store/auth.actions';
 import { selectIsLoading, selectError } from '@core/auth/store/auth.reducer';
@@ -12,7 +12,7 @@ import { ValidationError } from '@core/auth/models/auth-dto.model';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, LucideAngularModule, ThemeSwitcherComponent, Button],
+  imports: [ReactiveFormsModule, RouterLink, LucideAngularModule, ThemeSwitcher, Button],
   templateUrl: './login.html',
   styleUrl: './login.scss',
 })

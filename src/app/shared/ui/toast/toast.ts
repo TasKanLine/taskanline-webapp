@@ -64,7 +64,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
     ]),
   ],
 })
-export class ToastComponent {
+export class Toast {
   toastService = inject(ToastService);
 
   readonly X = X;

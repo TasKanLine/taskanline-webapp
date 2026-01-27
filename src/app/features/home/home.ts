@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { MainLayoutComponent } from '@layout/main-layout/main-layout';
+import { Sidebar } from '@layout/sidebar/sidebar';
+import { ThemeSwitcher } from '@shared/ui/theme-switcher/theme-switcher';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MainLayoutComponent],
+  imports: [Sidebar, ThemeSwitcher],
   templateUrl: './home.html',
   styleUrl: './home.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

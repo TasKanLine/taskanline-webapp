@@ -1,41 +1,20 @@
-<aside class="hidden lg:flex w-64 shrink-0 border-r border-border-color bg-bg-secondary/40">
+<aside class="hidden lg:flex w-48 h-screen shrink-0 border-r border-border-color bg-bg-secondary/40">
   <div class="flex w-full flex-col gap-6 px-4 py-6">
-    <div class="rounded-2xl border border-border-color bg-bg-secondary px-4 py-3">
-      <p class="text-xs uppercase tracking-[0.2em] text-text-secondary">Focus</p>
-      <p class="text-lg font-semibold">Сегодня</p>
-      <p class="text-sm text-text-secondary">3 задачи в работе</p>
+    <div class="flex items-center gap-3">
+      <div
+        class="size-9 rounded-xl bg-[var(--color-primary)]/15 text-[var(--color-primary)] flex items-center justify-center font-semibold"
+      >
+        TL
+      </div>
+      <div class="leading-tight">
+        <p>TasKanLine</p>
+      </div>
     </div>
 
     <nav class="flex flex-col gap-2">
-      <button
-        class="w-full rounded-xl bg-[var(--color-primary)]/10 px-3 py-2 text-left text-sm font-medium text-[var(--color-primary)]"
-        type="button"
-      >
-        Overview
-      </button>
-      <button
-        class="w-full rounded-xl px-3 py-2 text-left text-sm text-text-primary transition hover:bg-bg-secondary"
-        type="button"
-      >
-        My Tasks
-      </button>
-      <button
-        class="w-full rounded-xl px-3 py-2 text-left text-sm text-text-primary transition hover:bg-bg-secondary"
-        type="button"
-      >
-        Calendar
-      </button>
-      <button
-        class="w-full rounded-xl px-3 py-2 text-left text-sm text-text-primary transition hover:bg-bg-secondary"
-        type="button"
-      >
-        Team
-      </button>
+      <button appButton justify="start" severity="primary" variant="text" [icon]="Icons.ListChecks">Issues</button>
+      <button appButton justify="start" severity="primary" variant="text" [icon]="Icons.CalendarFold">Calendar</button>
+      <button appButton justify="start" severity="primary" variant="text" [icon]="Icons.UsersRound">Team</button>
     </nav>
-
-    <div class="rounded-2xl border border-border-color bg-bg-secondary/70 px-4 py-3 text-sm">
-      <p class="font-semibold">Pro Tip</p>
-      <p class="mt-1 text-text-secondary">Собирайте задачи по проектам — так проще держать фокус.</p>
-    </div>
   </div>
 </aside>

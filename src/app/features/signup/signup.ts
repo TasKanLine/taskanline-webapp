@@ -13,7 +13,7 @@ import { Button } from '@shared/ui/button/button';
 import { Store } from '@ngrx/store';
 import { AuthActions } from '@core/auth/store/auth.actions';
 import { selectIsLoading, selectError } from '@core/auth/store/auth.reducer';
-import { ThemeSwitcherComponent } from '@shared/ui/theme-switcher/theme-switcher';
+import { ThemeSwitcher } from '@shared/ui/theme-switcher/theme-switcher';
 import { HTTPValidationError } from '@core/auth/models/auth-dto.model';
 
 // Валидатор для сравнения паролей
@@ -27,7 +27,7 @@ const passwordMatchValidator: ValidatorFn = (control: AbstractControl): Validati
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, LucideAngularModule, Button, ThemeSwitcherComponent],
+  imports: [ReactiveFormsModule, RouterLink, LucideAngularModule, Button, ThemeSwitcher],
   templateUrl: './signup.html',
   styleUrl: './signup.scss',
 })
