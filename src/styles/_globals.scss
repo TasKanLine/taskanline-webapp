@@ -56,29 +56,6 @@ h5,
   @include fluid-text(24, 18);
 }
 
-a,
-button,
-input,
-textarea,
-select,
-svg * {
-  transition-duration: var(--transition-duration);
-}
-
-a {
-  color: inherit;
-
-  @media (hover: hover) {
-    &:hover {
-      color: var(--color-primary);
-    }
-  }
-
-  &[class] {
-    text-decoration: none;
-  }
-}
-
 :focus-visible {
   outline: rem(2) dashed var(--color-primary);
   outline-offset: rem(4);

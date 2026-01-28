@@ -1,4 +1,4 @@
-<aside class="hidden lg:flex w-48 h-screen shrink-0 border-r border-border-color bg-bg-secondary/40">
+<aside class="hidden lg:flex w-52 h-screen shrink-0 border-r border-border-color bg-bg-secondary/40">
   <div class="flex w-full flex-col gap-6 px-4 py-6">
     <div class="flex items-center gap-3">
       <div
@@ -16,5 +16,50 @@
       <button appButton justify="start" severity="primary" variant="text" [icon]="Icons.CalendarFold">Calendar</button>
       <button appButton justify="start" severity="primary" variant="text" [icon]="Icons.UsersRound">Team</button>
     </nav>
+
+    @if (isAuthenticated()) {
+    <div class="mt-auto relative">
+      <button
+        #menuButton
+        type="button"
+        class="flex w-full items-center gap-3 rounded-xl border border-border-color bg-bg-secondary/80 px-3 py-2 text-left text-sm hover:bg-bg-secondary"
+        (click)="toggleMenu()"
+        aria-haspopup="menu"
+        [attr.aria-expanded]="menuOpen()"
+      >
+        <div
+          class="flex size-9 items-center justify-center rounded-full bg-[var(--color-initial-bg-secondary)] text-[var(--color-initial-text-secondary)] text-sm font-bold"
+        >
+          {{ initials() }}
+        </div>
+        <span class="truncate text-text-primary">{{ displayName() }}</span>
+      </button>
+
+      @if (menuOpen()) {
+      <div
+        #menuPanel
+        class="absolute bottom-full left-0 mb-2 w-full rounded-xl border border-border-color bg-bg-secondary/95 shadow-lg backdrop-blur"
+        role="menu"
+      >
+        <button
+          routerLink="/profile"
+          class="flex w-full items-center px-3 py-2 text-sm text-text-primary hover:bg-bg-primary/60 rounded-xl"
+          role="menuitem"
+          (click)="closeMenu()"
+        >
+          Profile
+        </button>
+        <button
+          type="button"
+          class="flex w-full items-center px-3 py-2 text-sm text-text-primary hover:bg-bg-primary/60 rounded-xl"
+          role="menuitem"
+          (click)="logout()"
+        >
+          Logout
+        </button>
+      </div>
+      }
+    </div>
+    }
   </div>
 </aside>

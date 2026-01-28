@@ -2,9 +2,7 @@
   <app-theme-switcher></app-theme-switcher>
 </div>
 
-<div
-  class="min-h-screen flex items-center justify-center p-4 bg-bg-primary text-text-primary transition-colors duration-300"
->
+<div class="min-h-screen flex items-center justify-center p-4 bg-bg-primary text-text-primary">
   <div class="w-full max-w-[400px] md:max-w-[450px]">
     <!-- Header -->
     <div class="text-center mb-8">
@@ -12,9 +10,7 @@
     </div>
 
     <!-- Card -->
-    <div
-      class="bg-bg-secondary border border-border-color rounded-lg p-6 sm:p-8 shadow-sm transition-colors duration-300"
-    >
+    <div class="bg-bg-secondary border border-border-color rounded-lg p-6 sm:p-8 shadow-sm">
       <h3 class="text-2xl font-bold font-serif mb-2 text-center">Create Account</h3>
       <p class="text-sm opacity-70 mb-6 text-center">Join TasKanLine and manage your projects</p>
 
@@ -27,7 +23,7 @@
             type="email"
             formControlName="email"
             placeholder="yourname@example.com"
-            class="w-full px-4 py-2 border rounded-md bg-bg-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-input-border focus:border-transparent transition-all hover:border-input-border"
+            class="w-full px-4 py-2 border rounded-md bg-bg-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-input-border focus:border-transparent hover:border-input-border"
             [class.border-red-500]="isFieldInvalid('email') || getFieldError('email')"
             [class.border-border-color]="!isFieldInvalid('email') && !getFieldError('email')"
             [attr.aria-invalid]="isFieldInvalid('email') || !!getFieldError('email')"
@@ -47,7 +43,7 @@
             type="text"
             formControlName="username"
             placeholder="Enter username"
-            class="w-full px-4 py-2 border rounded-md bg-bg-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-input-border focus:border-transparent transition-all hover:border-input-border"
+            class="w-full px-4 py-2 border rounded-md bg-bg-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-input-border focus:border-transparent hover:border-input-border"
             [class.border-red-500]="isFieldInvalid('username') || getFieldError('username')"
             [class.border-border-color]="!isFieldInvalid('username') && !getFieldError('username')"
             [attr.aria-invalid]="isFieldInvalid('username') || !!getFieldError('username')"
@@ -72,7 +68,7 @@
               type="text"
               formControlName="firstName"
               placeholder="Enter first name"
-              class="w-full px-4 py-2 border rounded-md bg-bg-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-input-border focus:border-transparent transition-all hover:border-input-border"
+              class="w-full px-4 py-2 border rounded-md bg-bg-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-input-border focus:border-transparent hover:border-input-border"
               [class.border-red-500]="isFieldInvalid('firstName') || getFieldError('firstName')"
               [class.border-border-color]="!isFieldInvalid('firstName') && !getFieldError('firstName')"
               [attr.aria-invalid]="isFieldInvalid('firstName') || !!getFieldError('firstName')"
@@ -90,7 +86,7 @@
               type="text"
               formControlName="lastName"
               placeholder="Enter last name"
-              class="w-full px-4 py-2 border rounded-md bg-bg-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-input-border focus:border-transparent transition-all hover:border-input-border"
+              class="w-full px-4 py-2 border rounded-md bg-bg-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-input-border focus:border-transparent hover:border-input-border"
               [class.border-red-500]="isFieldInvalid('lastName') || getFieldError('lastName')"
               [class.border-border-color]="!isFieldInvalid('lastName') && !getFieldError('lastName')"
               [attr.aria-invalid]="isFieldInvalid('lastName') || !!getFieldError('lastName')"
@@ -112,7 +108,7 @@
               [type]="showPassword() ? 'text' : 'password'"
               formControlName="password"
               placeholder="********"
-              class="w-full px-4 py-2 border rounded-md bg-bg-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-input-border focus:border-transparent transition-all hover:border-input-border"
+              class="w-full px-4 py-2 border rounded-md bg-bg-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-input-border focus:border-transparent hover:border-input-border"
               [class.border-red-500]="isFieldInvalid('password') || getFieldError('password')"
               [class.border-border-color]="!isFieldInvalid('password') && !getFieldError('password')"
               [attr.aria-invalid]="isFieldInvalid('password') || !!getFieldError('password')"
@@ -120,7 +116,7 @@
             <button
               type="button"
               (click)="togglePasswordVisibility()"
-              class="absolute right-3 top-1/2 -translate-y-1/2 text-text-primary opacity-60 hover:opacity-100 transition-opacity"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-text-primary opacity-60 hover:opacity-100"
               [attr.aria-label]="showPassword() ? 'Hide password' : 'Show password'"
             >
               <lucide-icon [img]="showPassword() ? EyeOff : Eye" [size]="20" [strokeWidth]="2"></lucide-icon>
@@ -138,7 +134,7 @@
         <!-- Password Strength -->
         <div class="mb-6 h-1.5 w-full bg-gray-200 rounded-full overflow-hidden flex">
           <div
-            class="h-full transition-all duration-300"
+            class="h-full"
             [style.width.%]="(passwordStrength() / 4) * 100"
             [class.bg-red-500]="passwordStrength() <= 2"
             [class.bg-yellow-500]="passwordStrength() === 3"
@@ -154,7 +150,7 @@
               [type]="showConfirmPassword() ? 'text' : 'password'"
               formControlName="confirmPassword"
               placeholder="********"
-              class="w-full px-4 py-2 border rounded-md bg-bg-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-input-border focus:border-transparent transition-all hover:border-input-border"
+              class="w-full px-4 py-2 border rounded-md bg-bg-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-input-border focus:border-transparent hover:border-input-border"
               [class.border-red-500]="isFieldInvalid('confirmPassword') || isPasswordMismatch()"
               [class.border-border-color]="!isFieldInvalid('confirmPassword') && !isPasswordMismatch()"
               [attr.aria-invalid]="isFieldInvalid('confirmPassword') || isPasswordMismatch()"
@@ -162,7 +158,7 @@
             <button
               type="button"
               (click)="toggleConfirmPasswordVisibility()"
-              class="absolute right-3 top-1/2 -translate-y-1/2 text-text-primary opacity-60 hover:opacity-100 transition-opacity"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-text-primary opacity-60 hover:opacity-100"
               [attr.aria-label]="showConfirmPassword() ? 'Hide password' : 'Show password'"
             >
               <lucide-icon [img]="showConfirmPassword() ? EyeOff : Eye" [size]="20" [strokeWidth]="2"></lucide-icon>
@@ -191,7 +187,7 @@
 
       <!-- Links -->
       <div class="mt-6 text-center text-sm">
-        <a routerLink="/login" class="opacity-60 hover:opacity-100 hover:text-color-primary hover:underline">
+        <a routerLink="/login" class="opacity-60 hover:opacity-100 hover:text-[var(--color-primary)] hover:underline">
           Already have an account? Login
         </a>
       </div>

@@ -14,5 +14,50 @@
 
   <div class="flex items-center gap-4">
     <app-theme-switcher></app-theme-switcher>
+
+    @if (!isAuthenticated()) {
+    <div class="flex items-center gap-2">
+      <a appButton variant="text" severity="primary" routerLink="/login">Login</a>
+      <a appButton severity="primary" variant="raised" routerLink="/signup">Signup</a>
+    </div>
+    } @else {
+    <div class="relative">
+      <button
+        #menuButton
+        type="button"
+        class="flex size-9 items-center justify-center rounded-full bg-[var(--color-initial-bg-secondary)] text-[var(--color-initial-text-secondary)] text-sm font-bold"
+        (click)="toggleMenu()"
+        aria-haspopup="menu"
+        [attr.aria-expanded]="menuOpen()"
+      >
+        {{ initials() }}
+      </button>
+
+      @if (menuOpen()) {
+      <div
+        #menuPanel
+        class="absolute right-0 mt-2 w-44 rounded-xl border border-border-color bg-bg-secondary/95 shadow-lg backdrop-blur"
+        role="menu"
+      >
+        <button
+          routerLink="/profile"
+          class="flex w-full items-center px-3 py-2 text-sm text-text-primary hover:bg-bg-primary/60 rounded-xl"
+          role="menuitem"
+          (click)="closeMenu()"
+        >
+          Profile
+        </button>
+        <button
+          type="button"
+          class="flex w-full items-center px-3 py-2 text-sm text-text-primary hover:bg-bg-primary/60 rounded-xl"
+          role="menuitem"
+          (click)="logout()"
+        >
+          Logout
+        </button>
+      </div>
+      }
+    </div>
+    }
   </div>
 </header>

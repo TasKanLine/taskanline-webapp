@@ -5,6 +5,7 @@ import { AuthActions } from '@core/auth/store/auth.actions';
 import { selectUser } from '@core/auth/store/auth.reducer';
 import { Button } from '@shared/ui/button/button';
 import { ThemeSwitcher } from '@shared/ui/theme-switcher/theme-switcher';
+import { getUserInitials } from '@shared/utils/initials';
 import { LucideAngularModule, LogOut } from 'lucide-angular';
 
 @Component({
@@ -20,26 +21,7 @@ export class Profile {
 
   user = this.store.selectSignal(selectUser);
 
-  initials = computed(() => {
-    const u = this.user();
-    if (!u) {
-      return '';
-    }
-
-    const first = u.first_name ? u.first_name[0].toUpperCase() : '';
-    const last = u.last_name ? u.last_name[0].toUpperCase() : '';
-
-    if (first && last) {
-      return `${first}${last}`;
-    }
-    if (first) {
-      return first;
-    }
-    if (u.username) {
-      return u.username.substring(0, 2).toUpperCase();
-    }
-    return u.email.substring(0, 2).toUpperCase();
-  });
+  initials = computed(() => getUserInitials(this.user()));
 
   readonly LogOutIcon = LogOut;
 
