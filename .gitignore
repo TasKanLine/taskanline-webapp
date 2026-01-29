@@ -41,6 +41,7 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+*.png
 .env
 
 # bv (beads viewer) local config and caches

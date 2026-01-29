@@ -22,7 +22,7 @@ import { BUTTON_BASE_CLASSES, SOLID_COLORS, OUTLINED_COLORS, TEXT_COLORS, SIZES 
       <lucide-icon [img]="icon()!" [class]="iconClass()" class="shrink-0" [strokeWidth]="2.5"></lucide-icon>
     }
 
-    @if (!loading()) {
+    @if (!loading() && !iconOnly()) {
       <span class="truncate">
         <ng-content></ng-content>
       </span>
@@ -71,6 +71,7 @@ export class Button {
     const sizeClass = SIZES[currentSize] || SIZES['medium'];
     const roundClass = this.rounded() ? 'is-rounded' : '';
     const iconOnlyClass = isIconOnly ? 'btn-icon-only' : '';
+    const gapClass = isIconOnly ? '' : 'gap-3';
 
     const justifyClasses: Record<ButtonJustify, string> = {
       start: 'justify-start',
@@ -111,7 +112,7 @@ export class Button {
       colorClass = SOLID_COLORS['primary'];
     }
 
-    return `${base} ${colorClass} ${sizeClass} ${roundClass} ${iconOnlyClass} ${stateClass} ${shadowClass} ${justifyClass}`;
+    return `${base} ${colorClass} ${sizeClass} ${roundClass} ${iconOnlyClass} ${gapClass} ${stateClass} ${shadowClass} ${justifyClass}`;
   });
 
   iconClass = computed(() => {

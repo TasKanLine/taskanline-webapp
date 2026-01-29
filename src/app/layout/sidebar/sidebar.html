@@ -43,15 +43,24 @@
       >
         <button
           routerLink="/profile"
-          class="flex w-full items-center px-3 py-2 text-sm text-text-primary hover:bg-bg-primary/60 rounded-xl"
+          class="w-full"
+          appButton
+          justify="center"
+          severity="primary"
+          variant="text"
+          [icon]="Icons.UserRound"
           role="menuitem"
           (click)="closeMenu()"
         >
           Profile
         </button>
         <button
-          type="button"
-          class="flex w-full items-center px-3 py-2 text-sm text-text-primary hover:bg-bg-primary/60 rounded-xl"
+          class="w-full"
+          appButton
+          justify="center"
+          severity="danger"
+          variant="text"
+          [icon]="Icons.LogOut"
           role="menuitem"
           (click)="logout()"
         >

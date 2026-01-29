@@ -16,11 +16,12 @@ import { selectIsAuthenticated, selectUser } from '@core/auth/store/auth.reducer
 import { getUserInitials } from '@shared/utils/initials';
 import { Button } from '@shared/ui/button/button';
 import { ThemeSwitcher } from '@shared/ui/theme-switcher/theme-switcher';
+import { LogOut, LucideAngularModule, UserRound } from 'lucide-angular';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, ThemeSwitcher, Button, RouterLink],
+  imports: [CommonModule, ThemeSwitcher, Button, RouterLink, LucideAngularModule],
   templateUrl: './header.html',
   styleUrl: './header.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -74,4 +75,8 @@ export class Header {
 
     this.closeMenu();
   }
+  readonly Icons = {
+    UserRound,
+    LogOut,
+  };
 }

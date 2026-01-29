@@ -14,7 +14,7 @@ import { AuthActions } from '@core/auth/store/auth.actions';
 import { selectIsAuthenticated, selectUser } from '@core/auth/store/auth.reducer';
 import { getUserInitials } from '@shared/utils/initials';
 import { Button } from '@shared/ui/button/button';
-import { CalendarFold, ListChecks, LucideAngularModule, UsersRound } from 'lucide-angular';
+import { CalendarFold, ListChecks, LogOut, LucideAngularModule, UserRound, UsersRound } from 'lucide-angular';
 
 @Component({
   selector: 'app-sidebar',
@@ -87,5 +87,7 @@ export class Sidebar {
     ListChecks,
     CalendarFold,
     UsersRound,
+    UserRound,
+    LogOut,
   };
 }
