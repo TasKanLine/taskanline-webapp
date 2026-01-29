@@ -5,33 +5,91 @@ import {
   HostListener,
   ViewChild,
   computed,
+  effect,
   inject,
+  input,
+  output,
   signal,
+  untracked,
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { filter, map, startWith } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AuthActions } from '@core/auth/store/auth.actions';
 import { selectIsAuthenticated, selectUser } from '@core/auth/store/auth.reducer';
 import { getUserInitials } from '@shared/utils/initials';
 import { Button } from '@shared/ui/button/button';
-import { CalendarFold, ListChecks, LogOut, LucideAngularModule, UserRound, UsersRound } from 'lucide-angular';
+import {
+  CalendarFold,
+  ChevronsLeft,
+  ChevronsRight,
+  ListChecks,
+  LogOut,
+  LucideAngularModule,
+  UserRound,
+  UsersRound,
+} from 'lucide-angular';
+import { CommonModule } from '@angular/common';
+
+interface NavItem {
+  label: string;
+  path: string;
+  icon: any;
+}
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [Button, LucideAngularModule, RouterLink],
+  imports: [Button, LucideAngularModule, RouterLink, RouterLinkActive, CommonModule],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '[class.w-52]': '!collapsed()',
+    '[class.w-20]': 'collapsed()',
+    '[class.transition-all]': 'true',
+    '[class.duration-300]': 'true',
+    '[class.ease-in-out]': 'true',
+    class:
+      'h-screen shrink-0 border-r border-border-color bg-bg-secondary/40 flex flex-col overflow-x-visible overflow-y-auto',
+  },
 })
 export class Sidebar {
+  // --- Новая логика (Inputs/Outputs) ---
+  collapsed = input.required<boolean>();
+  toggleCollapsed = output<void>();
+
   private store = inject(Store);
+  private router = inject(Router);
+
+  private wasMenuOpen = false;
 
   @ViewChild('menuButton', { read: ElementRef })
   private menuButton?: ElementRef<HTMLElement>;
 
   @ViewChild('menuPanel', { read: ElementRef })
   private menuPanel?: ElementRef<HTMLElement>;
+
+  readonly navItems: NavItem[] = [
+    { label: 'Issues', path: '/home/issues', icon: ListChecks },
+    { label: 'Calendar', path: '/home/calendar', icon: CalendarFold },
+    { label: 'Team', path: '/home/team', icon: UsersRound },
+  ];
+
+  private currentUrl = toSignal(
+    this.router.events.pipe(
+      filter((e): e is NavigationEnd => e instanceof NavigationEnd),
+      map((e) => e.urlAfterRedirects),
+      startWith(this.router.url),
+    ),
+    { initialValue: this.router.url },
+  );
+
+  isActive = (path: string): boolean => {
+    const url = this.currentUrl();
+    return url === path || url.startsWith(`${path}/`);
+  };
 
   isAuthenticated = this.store.selectSignal(selectIsAuthenticated);
   user = this.store.selectSignal(selectUser);
@@ -42,11 +100,35 @@ export class Sidebar {
     if (!currentUser) {
       return '';
     }
-
     return currentUser.username || currentUser.email;
   });
 
   menuOpen = signal(false);
+
+  constructor() {
+    effect(() => {
+      this.currentUrl();
+      if (untracked(() => this.menuOpen())) {
+        this.menuOpen.set(false);
+      }
+    });
+
+    effect(() => {
+      const open = this.menuOpen();
+      queueMicrotask(() => {
+        if (open) {
+          const panel = this.menuPanel?.nativeElement;
+          const first = panel?.querySelector<HTMLElement>(
+            '[role="menuitem"], button, a, [tabindex]:not([tabindex="-1"])',
+          );
+          first?.focus();
+        } else if (this.wasMenuOpen) {
+          this.menuButton?.nativeElement.focus();
+        }
+      });
+      this.wasMenuOpen = open;
+    });
+  }
 
   toggleMenu(): void {
     this.menuOpen.update((open) => !open);
@@ -61,6 +143,11 @@ export class Sidebar {
     this.store.dispatch(AuthActions.logout());
   }
 
+  // Новый метод для клика по кнопке коллапса
+  onCollapseClick(): void {
+    this.toggleCollapsed.emit();
+  }
+
   @HostListener('document:keydown.escape')
   onEscape(): void {
     this.closeMenu();
@@ -71,16 +158,48 @@ export class Sidebar {
     if (!this.menuOpen()) {
       return;
     }
-
     const target = event.target as Node | null;
-    const buttonEl = this.menuButton?.nativeElement;
-    const menuEl = this.menuPanel?.nativeElement;
-
-    if (buttonEl?.contains(target) || menuEl?.contains(target)) {
+    if (this.menuButton?.nativeElement?.contains(target) || this.menuPanel?.nativeElement?.contains(target)) {
       return;
     }
-
     this.closeMenu();
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  onDocumentKeydown(event: KeyboardEvent): void {
+    if (!this.menuOpen()) {
+      return;
+    }
+    if (event.key !== 'Tab') {
+      return;
+    }
+    const panel = this.menuPanel?.nativeElement;
+    if (!panel) {
+      return;
+    }
+    const focusables = Array.from(
+      panel.querySelectorAll<HTMLElement>('[role="menuitem"], button, a, [tabindex]:not([tabindex="-1"])'),
+    ).filter((el) => !el.hasAttribute('disabled') && !el.getAttribute('aria-disabled'));
+    if (focusables.length === 0) {
+      return;
+    }
+    const active = document.activeElement as HTMLElement | null;
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    if (active && !panel.contains(active)) {
+      event.preventDefault();
+      first.focus();
+      return;
+    }
+    if (event.shiftKey && active === first) {
+      event.preventDefault();
+      last.focus();
+      return;
+    }
+    if (!event.shiftKey && active === last) {
+      event.preventDefault();
+      first.focus();
+    }
   }
 
   readonly Icons = {
@@ -88,6 +207,8 @@ export class Sidebar {
     CalendarFold,
     UsersRound,
     UserRound,
+    ChevronsRight,
+    ChevronsLeft,
     LogOut,
   };
 }

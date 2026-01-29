@@ -21,7 +21,18 @@ export const routes: Routes = [
     children: [
       { path: 'reference', loadComponent: () => import('./features/reference/reference').then((m) => m.Reference) },
       { path: 'profile', loadComponent: () => import('./features/profile/profile').then((m) => m.Profile) },
-      { path: 'home', loadComponent: () => import('./features/home/home').then((m) => m.Home) },
+      {
+        path: 'home',
+        loadComponent: () => import('./features/home/home').then((m) => m.Home),
+        children: [
+          { path: 'calendar', redirectTo: 'issues', pathMatch: 'full' },
+          { path: 'team', redirectTo: 'issues', pathMatch: 'full' },
+          { path: 'issues', loadComponent: () => import('./features/issues/issues').then((m) => m.Issues) },
+          { path: 'issues/:id', loadComponent: () => import('./features/issues/issues').then((m) => m.Issues) },
+          { path: 'issues/:id/edit', loadComponent: () => import('./features/issues/issues').then((m) => m.Issues) },
+          { path: 'issues/new', loadComponent: () => import('./features/issues/issues').then((m) => m.Issues) },
+        ],
+      },
     ],
   },
 

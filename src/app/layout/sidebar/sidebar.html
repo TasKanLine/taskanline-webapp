@@ -1,74 +1,123 @@
-<aside class="hidden lg:flex w-52 h-screen shrink-0 border-r border-border-color bg-bg-secondary/40">
-  <div class="flex w-full flex-col gap-6 px-4 py-6">
-    <div class="flex items-center gap-3">
-      <div
-        class="size-9 rounded-xl bg-[var(--color-primary)]/15 text-[var(--color-primary)] flex items-center justify-center font-semibold"
-      >
-        TL
-      </div>
-      <div class="leading-tight">
-        <p>TasKanLine</p>
-      </div>
+<div class="flex w-full h-full flex-col gap-6 px-4 py-6">
+  <div class="flex items-center gap-3 overflow-hidden whitespace-nowrap">
+    <div
+      class="size-9 shrink-0 rounded-xl bg-[var(--color-primary)]/15 text-[var(--color-primary)] flex items-center justify-center font-semibold"
+    >
+      TL
     </div>
 
-    <nav class="flex flex-col gap-2">
-      <button appButton justify="start" severity="primary" variant="text" [icon]="Icons.ListChecks">Issues</button>
-      <button appButton justify="start" severity="primary" variant="text" [icon]="Icons.CalendarFold">Calendar</button>
-      <button appButton justify="start" severity="primary" variant="text" [icon]="Icons.UsersRound">Team</button>
-    </nav>
-
-    @if (isAuthenticated()) {
-    <div class="mt-auto relative">
-      <button
-        #menuButton
-        type="button"
-        class="flex w-full items-center gap-3 rounded-xl border border-border-color bg-bg-secondary/80 px-3 py-2 text-left text-sm hover:bg-bg-secondary"
-        (click)="toggleMenu()"
-        aria-haspopup="menu"
-        [attr.aria-expanded]="menuOpen()"
-      >
-        <div
-          class="flex size-9 items-center justify-center rounded-full bg-[var(--color-initial-bg-secondary)] text-[var(--color-initial-text-secondary)] text-sm font-bold"
-        >
-          {{ initials() }}
-        </div>
-        <span class="truncate text-text-primary">{{ displayName() }}</span>
-      </button>
-
-      @if (menuOpen()) {
-      <div
-        #menuPanel
-        class="absolute bottom-full left-0 mb-2 w-full rounded-xl border border-border-color bg-bg-secondary/95 shadow-lg backdrop-blur"
-        role="menu"
-      >
-        <button
-          routerLink="/profile"
-          class="w-full"
-          appButton
-          justify="center"
-          severity="primary"
-          variant="text"
-          [icon]="Icons.UserRound"
-          role="menuitem"
-          (click)="closeMenu()"
-        >
-          Profile
-        </button>
-        <button
-          class="w-full"
-          appButton
-          justify="center"
-          severity="danger"
-          variant="text"
-          [icon]="Icons.LogOut"
-          role="menuitem"
-          (click)="logout()"
-        >
-          Logout
-        </button>
-      </div>
-      }
+    @if (!collapsed()) {
+    <div class="leading-tight transition-opacity duration-300">
+      <p class="font-bold">TasKanLine</p>
     </div>
     }
   </div>
-</aside>
+
+  <nav class="flex flex-col gap-2">
+    @for (item of navItems; track item.path) {
+    <button
+      appButton
+      [iconOnly]="collapsed()"
+      [justify]="collapsed() ? 'center' : 'start'"
+      severity="primary"
+      variant="text"
+      [icon]="item.icon"
+      [routerLink]="item.path"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: false }"
+      [attr.aria-current]="isActive(item.path) ? 'page' : null"
+      [attr.aria-label]="item.label"
+      [title]="collapsed() ? item.label : ''"
+    >
+      @if (!collapsed()) {
+      <span class="whitespace-nowrap overflow-hidden"> {{ item.label }} </span>
+      }
+    </button>
+    }
+  </nav>
+
+  @if (isAuthenticated()) {
+  <div class="mt-auto relative">
+    <button
+      #menuButton
+      type="button"
+      class="flex w-full items-center gap-3 rounded-xl border border-border-color bg-bg-secondary/80 px-2 py-2 text-left text-sm hover:bg-bg-secondary transition-all"
+      [class.justify-center]="collapsed()"
+      (click)="toggleMenu()"
+      aria-haspopup="menu"
+      [attr.aria-expanded]="menuOpen()"
+      [attr.aria-label]="collapsed() ? displayName() : null"
+      [title]="collapsed() ? displayName() : ''"
+    >
+      <div
+        class="flex size-9 shrink-0 items-center justify-center rounded-full bg-[var(--color-initial-bg-secondary)] text-[var(--color-initial-text-secondary)] text-sm font-bold"
+      >
+        {{ initials() }}
+      </div>
+
+      @if (!collapsed()) {
+      <span class="truncate text-text-primary flex-1">{{ displayName() }}</span>
+      }
+    </button>
+
+    @if (menuOpen()) {
+    <div
+      #menuPanel
+      class="absolute mb-2 rounded-xl border border-border-color bg-bg-secondary/95 shadow-lg backdrop-blur z-50"
+      [class.bottom-full]="!collapsed()"
+      [class.left-0]="!collapsed()"
+      [class.w-full]="!collapsed()"
+      [class.left-full]="collapsed()"
+      [class.bottom-0]="collapsed()"
+      [class.ml-2]="collapsed()"
+      [class.w-48]="collapsed()"
+      role="menu"
+    >
+      <button
+        routerLink="/profile"
+        class="w-full"
+        appButton
+        justify="center"
+        severity="primary"
+        variant="text"
+        [icon]="Icons.UserRound"
+        role="menuitem"
+        (click)="closeMenu()"
+      >
+        Profile
+      </button>
+      <button
+        class="w-full"
+        appButton
+        justify="center"
+        severity="danger"
+        variant="text"
+        [icon]="Icons.LogOut"
+        role="menuitem"
+        (click)="logout()"
+      >
+        Logout
+      </button>
+    </div>
+    }
+  </div>
+  }
+
+  <div>
+    <button
+      class="w-full"
+      appButton
+      justify="start"
+      severity="primary"
+      variant="text"
+      [icon]="collapsed() ? Icons.ChevronsRight : Icons.ChevronsLeft"
+      (click)="onCollapseClick()"
+      [attr.aria-label]="collapsed() ? 'Expand sidebar' : 'Collapse sidebar'"
+      [title]="collapsed() ? 'Expand sidebar' : 'Collapse sidebar'"
+    >
+      @if (!collapsed()) {
+      <span>Collapse</span>
+      }
+    </button>
+  </div>
+</div>
