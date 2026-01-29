@@ -3,12 +3,27 @@
     <app-theme-switcher></app-theme-switcher>
   </div>
 
+  @if (isMobile()) {
+  <button
+    appButton
+    class="fixed left-4 top-4 z-40"
+    severity="primary"
+    variant="text"
+    [icon]="isSidebarCollapsed() ? Icons.Menu : Icons.X"
+    [iconOnly]="true"
+    (click)="toggleSidebar()"
+    aria-label="Toggle sidebar"
+  ></button>
+  } @if (isMobile() && !isSidebarCollapsed()) {
+  <div class="fixed inset-0 bg-black/30 z-20" (click)="toggleSidebar()"></div>
+  }
+
   <app-sidebar
     class="fixed top-0 left-0 z-30 h-full shadow-xl lg:shadow-none"
     [collapsed]="isSidebarCollapsed()"
     (toggleCollapsed)="toggleSidebar()"
-    [class.-translate-x-full]="screenWidth() < 1024 && isSidebarCollapsed()"
-    [class.translate-x-0]="!isSidebarCollapsed()"
+    [class.-translate-x-full]="isMobile() && isSidebarCollapsed()"
+    [class.translate-x-0]="isMobile() && !isSidebarCollapsed()"
   ></app-sidebar>
   <main
     class="flex-1 min-h-screen flex flex-col transition-[margin] duration-300 ease-in-out relative z-0"

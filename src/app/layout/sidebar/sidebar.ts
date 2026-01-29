@@ -60,10 +60,12 @@ export class Sidebar {
   collapsed = input.required<boolean>();
   toggleCollapsed = output<void>();
 
+  private hostRef = inject(ElementRef<HTMLElement>);
   private store = inject(Store);
   private router = inject(Router);
 
   private wasMenuOpen = false;
+  private menuPosition = signal<{ top: number; left: number; minWidth: number } | null>(null);
 
   @ViewChild('menuButton', { read: ElementRef })
   private menuButton?: ElementRef<HTMLElement>;
@@ -117,6 +119,7 @@ export class Sidebar {
       const open = this.menuOpen();
       queueMicrotask(() => {
         if (open) {
+          this.updateMenuPosition();
           const panel = this.menuPanel?.nativeElement;
           const first = panel?.querySelector<HTMLElement>(
             '[role="menuitem"], button, a, [tabindex]:not([tabindex="-1"])',
@@ -128,6 +131,18 @@ export class Sidebar {
       });
       this.wasMenuOpen = open;
     });
+
+    effect(() => {
+      const open = this.menuOpen();
+      this.collapsed();
+      if (open) {
+        queueMicrotask(() => this.updateMenuPosition());
+      }
+    });
+  }
+
+  getMenuPosition(): { top: number; left: number; minWidth: number } | null {
+    return this.menuPosition();
   }
 
   toggleMenu(): void {
@@ -165,6 +180,20 @@ export class Sidebar {
     this.closeMenu();
   }
 
+  @HostListener('window:resize')
+  onWindowResize(): void {
+    if (this.menuOpen()) {
+      this.updateMenuPosition();
+    }
+  }
+
+  @HostListener('window:scroll')
+  onWindowScroll(): void {
+    if (this.menuOpen()) {
+      this.updateMenuPosition();
+    }
+  }
+
   @HostListener('document:keydown', ['$event'])
   onDocumentKeydown(event: KeyboardEvent): void {
     if (!this.menuOpen()) {
@@ -200,6 +229,20 @@ export class Sidebar {
       event.preventDefault();
       first.focus();
     }
+  }
+
+  private updateMenuPosition(): void {
+    const button = this.menuButton?.nativeElement;
+    if (!button) {
+      return;
+    }
+
+    const rect = button.getBoundingClientRect();
+    const hostRect = this.hostRef.nativeElement.getBoundingClientRect();
+    const left = this.collapsed() ? hostRect.right + 8 : rect.left;
+    const minWidth = this.collapsed() ? 192 : rect.width;
+
+    this.menuPosition.set({ top: rect.bottom, left, minWidth });
   }
 
   readonly Icons = {

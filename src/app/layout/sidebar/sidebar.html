@@ -63,21 +63,17 @@
     @if (menuOpen()) {
     <div
       #menuPanel
-      class="absolute mb-2 rounded-xl border border-border-color bg-bg-secondary/95 shadow-lg backdrop-blur z-50"
-      [class.bottom-full]="!collapsed()"
-      [class.left-0]="!collapsed()"
-      [class.w-full]="!collapsed()"
-      [class.left-full]="collapsed()"
-      [class.bottom-0]="collapsed()"
-      [class.ml-2]="collapsed()"
-      [class.w-48]="collapsed()"
+      class="fixed -translate-y-full -mt-2 rounded-xl border border-border-color bg-bg-secondary/95 shadow-lg backdrop-blur z-50"
+      [style.top.px]="getMenuPosition()?.top"
+      [style.left.px]="getMenuPosition()?.left"
+      [style.minWidth.px]="getMenuPosition()?.minWidth"
       role="menu"
     >
       <button
         routerLink="/profile"
         class="w-full"
         appButton
-        justify="center"
+        justify="start"
         severity="primary"
         variant="text"
         [icon]="Icons.UserRound"
@@ -89,7 +85,7 @@
       <button
         class="w-full"
         appButton
-        justify="center"
+        justify="start"
         severity="danger"
         variant="text"
         [icon]="Icons.LogOut"
