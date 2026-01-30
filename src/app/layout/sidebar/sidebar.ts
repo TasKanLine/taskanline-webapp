@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   HostListener,
+  OnInit,
   ViewChild,
   computed,
   effect,
@@ -24,9 +25,11 @@ import {
   CalendarFold,
   ChevronsLeft,
   ChevronsRight,
+  CircleCheckBig,
   ListChecks,
   LogOut,
   LucideAngularModule,
+  LucideIconData,
   UserRound,
   UsersRound,
 } from 'lucide-angular';
@@ -35,7 +38,7 @@ import { CommonModule } from '@angular/common';
 interface NavItem {
   label: string;
   path: string;
-  icon: any;
+  icon: LucideIconData;
 }
 
 @Component({
@@ -52,10 +55,10 @@ interface NavItem {
     '[class.duration-300]': 'true',
     '[class.ease-in-out]': 'true',
     class:
-      'h-screen shrink-0 border-r border-border-color bg-bg-secondary/40 flex flex-col overflow-x-visible overflow-y-auto',
+      'h-screen shrink-0 border-r border-border-color bg-bg-secondary flex flex-col overflow-x-visible overflow-y-auto',
   },
 })
-export class Sidebar {
+export class Sidebar implements OnInit {
   // --- Новая логика (Inputs/Outputs) ---
   collapsed = input.required<boolean>();
   toggleCollapsed = output<void>();
@@ -65,7 +68,13 @@ export class Sidebar {
   private router = inject(Router);
 
   private wasMenuOpen = false;
-  private menuPosition = signal<{ top: number; left: number; minWidth: number } | null>(null);
+  private lastCollapsed = false;
+  readonly menuPosition = signal<{
+    top: number;
+    left: number;
+    minWidth: number;
+  } | null>(null);
+  readonly menuId = 'user-menu';
 
   @ViewChild('menuButton', { read: ElementRef })
   private menuButton?: ElementRef<HTMLElement>;
@@ -74,7 +83,7 @@ export class Sidebar {
   private menuPanel?: ElementRef<HTMLElement>;
 
   readonly navItems: NavItem[] = [
-    { label: 'Issues', path: '/home/issues', icon: ListChecks },
+    { label: 'Issues', path: '/home/issues', icon: CircleCheckBig },
     { label: 'Calendar', path: '/home/calendar', icon: CalendarFold },
     { label: 'Team', path: '/home/team', icon: UsersRound },
   ];
@@ -105,6 +114,8 @@ export class Sidebar {
     return currentUser.username || currentUser.email;
   });
 
+  menuLabel = computed(() => this.displayName() || 'User menu');
+
   menuOpen = signal(false);
 
   constructor() {
@@ -117,7 +128,7 @@ export class Sidebar {
 
     effect(() => {
       const open = this.menuOpen();
-      queueMicrotask(() => {
+      setTimeout(() => {
         if (open) {
           this.updateMenuPosition();
           const panel = this.menuPanel?.nativeElement;
@@ -136,13 +147,19 @@ export class Sidebar {
       const open = this.menuOpen();
       this.collapsed();
       if (open) {
-        queueMicrotask(() => this.updateMenuPosition());
+        setTimeout(() => this.updateMenuPosition(), 0);
       }
     });
-  }
 
-  getMenuPosition(): { top: number; left: number; minWidth: number } | null {
-    return this.menuPosition();
+    effect(() => {
+      const collapsed = this.collapsed();
+      if (collapsed !== this.lastCollapsed) {
+        this.lastCollapsed = collapsed;
+        if (this.menuOpen()) {
+          this.menuOpen.set(false);
+        }
+      }
+    });
   }
 
   toggleMenu(): void {
@@ -194,6 +211,13 @@ export class Sidebar {
     }
   }
 
+  @HostListener('scroll')
+  onHostScroll(): void {
+    if (this.menuOpen()) {
+      this.updateMenuPosition();
+    }
+  }
+
   @HostListener('document:keydown', ['$event'])
   onDocumentKeydown(event: KeyboardEvent): void {
     if (!this.menuOpen()) {
@@ -239,10 +263,24 @@ export class Sidebar {
 
     const rect = button.getBoundingClientRect();
     const hostRect = this.hostRef.nativeElement.getBoundingClientRect();
-    const left = this.collapsed() ? hostRect.right + 8 : rect.left;
+    const panel = this.menuPanel?.nativeElement;
     const minWidth = this.collapsed() ? 192 : rect.width;
+    const panelWidth = panel?.offsetWidth || minWidth;
+    const panelHeight = panel?.offsetHeight || 0;
+    const gap = 8;
 
-    this.menuPosition.set({ top: rect.bottom, left, minWidth });
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    const baseLeft = this.collapsed() ? hostRect.right + gap : rect.left;
+    const clampedLeft = Math.min(Math.max(baseLeft, gap), viewportWidth - panelWidth - gap);
+
+    const spaceAbove = rect.top;
+    const spaceBelow = viewportHeight - rect.bottom;
+    const openUp = panelHeight > 0 && (spaceAbove >= panelHeight + gap || spaceAbove > spaceBelow);
+    const top = openUp ? rect.top - panelHeight - gap : rect.bottom + gap;
+    const clampedTop = Math.min(Math.max(top, gap), viewportHeight - panelHeight - gap);
+
+    this.menuPosition.set({ top: clampedTop, left: clampedLeft, minWidth });
   }
 
   readonly Icons = {
@@ -254,4 +292,8 @@ export class Sidebar {
     ChevronsLeft,
     LogOut,
   };
+
+  ngOnInit(): void {
+    this.lastCollapsed = this.collapsed();
+  }
 }

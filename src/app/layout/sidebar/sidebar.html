@@ -46,8 +46,9 @@
       (click)="toggleMenu()"
       aria-haspopup="menu"
       [attr.aria-expanded]="menuOpen()"
-      [attr.aria-label]="collapsed() ? displayName() : null"
-      [title]="collapsed() ? displayName() : ''"
+      [attr.aria-controls]="menuId"
+      [attr.aria-label]="collapsed() ? menuLabel() : null"
+      [title]="collapsed() ? menuLabel() : ''"
     >
       <div
         class="flex size-9 shrink-0 items-center justify-center rounded-full bg-[var(--color-initial-bg-secondary)] text-[var(--color-initial-text-secondary)] text-sm font-bold"
@@ -63,10 +64,11 @@
     @if (menuOpen()) {
     <div
       #menuPanel
-      class="fixed -translate-y-full -mt-2 rounded-xl border border-border-color bg-bg-secondary/95 shadow-lg backdrop-blur z-50"
-      [style.top.px]="getMenuPosition()?.top"
-      [style.left.px]="getMenuPosition()?.left"
-      [style.minWidth.px]="getMenuPosition()?.minWidth"
+      class="fixed rounded-xl border border-border-color bg-bg-secondary/95 shadow-lg backdrop-blur z-50"
+      [attr.id]="menuId"
+      [style.top.px]="menuPosition()?.top"
+      [style.left.px]="menuPosition()?.left"
+      [style.minWidth.px]="menuPosition()?.minWidth"
       role="menu"
     >
       <button

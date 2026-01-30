@@ -6,19 +6,23 @@
   @if (isMobile()) {
   <button
     appButton
-    class="fixed left-4 top-4 z-40"
+    class="fixed left-4 top-4 z-10 shadow-md"
     severity="primary"
-    variant="text"
-    [icon]="isSidebarCollapsed() ? Icons.Menu : Icons.X"
+    variant="raised"
+    [rounded]="true"
+    [icon]="Icons.Menu"
     [iconOnly]="true"
     (click)="toggleSidebar()"
+    [attr.aria-expanded]="!isSidebarCollapsed()"
+    [attr.aria-controls]="'app-sidebar'"
     aria-label="Toggle sidebar"
   ></button>
   } @if (isMobile() && !isSidebarCollapsed()) {
-  <div class="fixed inset-0 bg-black/30 z-20" (click)="toggleSidebar()"></div>
+  <div class="fixed inset-0 z-20" (click)="toggleSidebar()"></div>
   }
 
   <app-sidebar
+    id="app-sidebar"
     class="fixed top-0 left-0 z-30 h-full shadow-xl lg:shadow-none"
     [collapsed]="isSidebarCollapsed()"
     (toggleCollapsed)="toggleSidebar()"
@@ -35,7 +39,7 @@
     </div>
     }
 
-    <div class="px-6 pb-6 h-full">
+    <div class="px-6 pb-6">
       <router-outlet />
     </div>
   </main>
