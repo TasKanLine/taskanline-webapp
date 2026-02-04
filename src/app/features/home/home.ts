@@ -52,6 +52,17 @@ export class Home {
     }
   }
 
+  @HostListener('document:keydown', ['$event'])
+  onDocumentKeydown(event: KeyboardEvent): void {
+    if (event.key !== '[') {
+      return;
+    }
+    if (this.isEditableTarget(event.target)) {
+      return;
+    }
+    this.toggleSidebar();
+  }
+
   toggleSidebar(): void {
     this.isSidebarCollapsed.update((v) => !v);
   }
@@ -60,4 +71,12 @@ export class Home {
     Menu,
     X,
   };
+
+  private isEditableTarget(target: EventTarget | null): boolean {
+    if (!(target instanceof HTMLElement)) {
+      return false;
+    }
+    const tagName = target.tagName;
+    return tagName === 'INPUT' || tagName === 'TEXTAREA' || tagName === 'SELECT' || target.isContentEditable;
+  }
 }

@@ -117,6 +117,8 @@ export class Sidebar implements OnInit {
   menuLabel = computed(() => this.displayName() || 'User menu');
 
   menuOpen = signal(false);
+  collapseLabel = computed(() => (this.collapsed() ? 'Expand sidebar' : 'Collapse sidebar'));
+  collapseTitle = computed(() => `${this.collapseLabel()} (Shortcut: [)`);
 
   constructor() {
     effect(() => {

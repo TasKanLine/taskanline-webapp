@@ -110,8 +110,8 @@
       variant="text"
       [icon]="collapsed() ? Icons.ChevronsRight : Icons.ChevronsLeft"
       (click)="onCollapseClick()"
-      [attr.aria-label]="collapsed() ? 'Expand sidebar' : 'Collapse sidebar'"
-      [title]="collapsed() ? 'Expand sidebar' : 'Collapse sidebar'"
+      [attr.aria-label]="collapseTitle()"
+      [title]="collapseTitle()"
     >
       @if (!collapsed()) {
       <span>Collapse</span>
