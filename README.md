@@ -1,202 +1,175 @@
-# 🎯 TasKanLine Client
+# TasKanLine Client
 
-## 📝 Описание проекта
+**Управляй задачами в Kanban-стиле — быстро, адаптивно, с заботой о безопасности.**
 
-TasKanLine Client - современное фронтенд-приложение для управления задачами, построенное на Angular 21 с использованием передовых архитектурных паттернов. Приложение обеспечивает полноценную аутентификацию пользователей, интуитивный интерфейс и реактивное взаимодействие с backend-сервисом.
+Фронтенд-приложение для TasKanLine — системы управления задачами с Kanban-доской. Построено на Angular 21 с сигналами, NgRx, TailwindCSS и cookie-based аутентификацией. Поддержка тем, адаптивный дизайн, кросс-табовая синхронизация.
 
-## 🔍 Краткий обзор
+## Возможности
 
-### 🚀 Ключевые возможности
+- **Issues-менеджмент** — создание, просмотр, редактирование задач
+- **Аутентификация** — регистрация, вход, cookie-based сессии с cross-tab синхронизацией
+- **Темы** — светлая/тёмная с автоопределением системных настроек
+- **Адаптивность** — мобильный sidebar с автосворачиванием, клавиатурная навигация
+- **Обработка ошибок** — глобальные interceptors, информативные страницы 403/404/500
+- **Toast-уведомления** — success, error, info, warning с автоскрытием
 
-- **Аутентификация**: Полноценная система регистрации и входа с защитой маршрутов
-- **Темизация**: Поддержка светлой/темной темы с переключателем
-- **Реактивность**: Signals-based архитектура для мгновенного обновления UI
-- **Ошибка обработки**: Глобальная обработка ошибок с информативными страницами
-- **Адаптивность**: Полностью респонсивный дизайн для всех устройств
+## Quick Start
 
-### 🎨 Основные фичи
+### Требования
 
-- Формы входа/регистрации с валидацией
-- Персональный профиль пользователя
-- Справочная система с ленивой загрузкой
-- Уведомления (Toast) для пользовательского фидбэка
-- Защищенные маршруты с guards
+- Node.js >= 22.20
+- Bun (рекомендуется) или npm 11.6+
 
-## 🛠 Стек технологий
-
-### Frontend
-
-- ⚡ **Angular 21.1.0** - Modern standalone components architecture
-- 🔄 **NgRx 21.0.1** - State management с effects и devtools
-- 🎨 **TailwindCSS 4.1.18** - Utility-first CSS фреймворк
-- 📦 **TypeScript 5.9.3** - Статическая типизация
-- 🧪 **Vitest 4.0.17** - Современное тестирование
-- 🎭 **Lucide Icons 0.555.0** - Иконки
-
-### Build & Deployment
-
-- 🥟 **Bun** - Package manager & build tool (опционально)
-- 📦 **npm 11.6.2** - Package manager по умолчанию
-- 🐳 **Docker** - Контейнеризация для production
-- 🌐 **Nginx** - Web сервер для развертывания
-
-### Development Tools
-
-- 🔍 **ESLint** - Линтинг кода
-- 🎨 **Prettier** - Форматирование кода
-- 🧪 **Vitest** - Unit тестирование
-- 📱 **Angular DevTools** - Debugging и профилирование
-
-## 🚀 Установка и запуск
-
-### Предварительные требования
-
-- **Node.js** 22.20.0 или выше
-- **npm** 11.6.2+ (рекомендуется **Bun** для лучшей производительности)
-- **Git** для клонирования репозитория
-
-### Шаги установки
-
-1. **Клонирование репозитория**
-
-   ```bash
-   git clone <repository-url>
-   cd TasKanLine/client
-   ```
-
-2. **Установка зависимостей**
-
-   ```bash
-   # Используя npm
-   npm install
-
-   # Или используя Bun (рекомендуется)
-   bun install
-   ```
-
-3. **Настройка окружения**
-
-   ```bash
-   # Создать файл окружения из шаблона (если есть)
-   cp .env.example .env
-
-   # Настроить API endpoints и другие переменные
-   nano .env
-   ```
-
-4. **Запуск dev сервера**
-
-   ```bash
-   # Используя npm
-   npm run s
-
-   # Используя Bun
-   bun run s
-   ```
-
-Приложение будет доступно по адресу: `http://localhost:4200`
-
-### Команды разработки
+### Установка
 
 ```bash
-# Запуск dev сервера
-npm run s                    # или bun run s
-
-# Production сборка
-npm run build               # или bun run build
-
-# Запуск тестов
-npm test                    # или bun test
-
-# Проверка кода (linting)
-npm run lint                # или bun run lint
-
-# Автоисправление lint ошибок
-npm run lint:fix            # или bun run lint:fix
-
-# Форматирование кода
-npm run prettier            # или bun run prettier
-
-# Наблюдение за изменениями
-npm run watch               # или bun run watch
+git clone <repository-url>
+cd TasKanLine/client
+bun install
+bun run s
 ```
 
-## 🐳 Docker
+Откройте [http://localhost:4200](http://localhost:4200) в браузере.
 
-### Сборка Docker образа
+> [!NOTE]
+> Backend API должен быть запущен на `http://localhost:8000`. См. серверную часть проекта.
+
+## Tech Stack
+
+| Слой | Технология | Версия |
+|------|-----------|--------|
+| Framework | Angular (standalone, signals) | 21.1 |
+| State Management | NgRx + Signals | 21.0 |
+| Styling | TailwindCSS + SCSS | 4.1 |
+| Icons | Lucide Angular | 0.555 |
+| Testing | Vitest | 4.0 |
+| Package Manager | Bun | latest |
+| TypeScript | Strict mode, no `any` | 5.9 |
+
+## Архитектура
+
+```mermaid
+flowchart TB
+    subgraph Browser["Browser"]
+        direction TB
+        subgraph Public["Public (guestGuard)"]
+            Login[Login]
+            Signup[Signup]
+            Welcome[Welcome]
+        end
+
+        subgraph Auth["Authenticated (authGuard)"]
+            Home[Home Dashboard]
+            Issues[Issues CRUD]
+            Profile[Profile]
+        end
+
+        subgraph Core["Core Services"]
+            AuthService[Auth Service]
+            Store[NgRx Store]
+            Effects[Effects]
+            Interceptors[HTTP Interceptors]
+        end
+    end
+
+    subgraph API["Backend API :8000"]
+        REST[REST API v1]
+    end
+
+    Auth -->|cookie-based| Interceptors
+    Interceptors -->|withCredentials| REST
+    Effects -->|HTTP| REST
+    Store --> Effects
+    Home --> Store
+    Issues --> Store
+```
+
+## Структура проекта
+
+```
+src/app/
+├── core/            # Синглтоны: auth (guards, interceptors, store), ThemeService, ToastService
+├── features/        # Изолированные route-level компоненты (login, signup, home, issues, profile, errors)
+├── shared/          # Переиспользуемые UI: button, toast, theme-switcher
+├── layout/          # Shell: header, sidebar, footer, main-layout
+├── app.ts           # Root component (<router-outlet> + <app-toast>)
+├── app.config.ts    # Providers: router, HttpClient, NgRx, APP_INITIALIZER
+└── app.routes.ts    # Top-level route tree
+```
+
+Подробнее об архитектуре: [`docs/architecture/`](./docs/architecture/)
+
+## Команды разработки
+
+```bash
+bun run s            # Dev server (http://localhost:4200)
+bun run build        # Production build
+bun run lint         # ESLint check
+bun run lint:fix     # ESLint auto-fix
+bun run prettier     # Prettier format
+bun test             # Все тесты (Vitest)
+bunx vitest run <path>  # Один тест-файл
+```
+
+## Docker
+
+### Сборка и запуск
 
 ```bash
 docker build -t taskanline-client .
-```
-
-### Запуск контейнера
-
-```bash
 docker run -p 80:80 taskanline-client
 ```
 
-### Использование docker-compose (если доступно)
+### Docker Compose
 
 ```bash
 docker-compose up -d
 ```
 
-## 💡 Использование
+Контейнер использует multi-stage build (Bun -> Nginx Alpine), статика отдаётся через Nginx на порту 80.
 
-### Основные пользовательские сценарии
+<details>
+<summary>Детали Docker-архитектуры</summary>
 
-1. **Регистрация нового пользователя**
-   - Перейти на `/signup`
-   - Заполнить форму регистрации
-   - Подтвердить email (если настроено)
+- **Stage 1:** `oven/bun:1` — установка зависимостей и production-сборка
+- **Stage 2:** `nginx:alpine` — минимальный образ для раздачи статики
+- Порт по умолчанию: `8080:80` (docker-compose) или `80:80` (docker run)
+- Требуется внешняя сеть `taskanline-client-network`
 
-2. **Вход в систему**
-   - Перейти на `/login`
-   - Ввести email и пароль
-   - Опционально: "Запомнить меня"
+</details>
 
-3. **Работа с профилем**
-   - После входа доступен профиль пользователя по `/profile`
-   - Возможность редактирования личных данных
+## Аутентификация
 
-4. **Переключение темы**
-   - Использовать toggle в header для смены светлой/темной темы
-   - Настройки сохраняются в localStorage
+Приложение использует **cookie-based аутентификацию** (не токены в localStorage):
 
-### API интеграция
+1. `APP_INITIALIZER` проверяет сессию при загрузке (`GET /auth/me`)
+2. `authInterceptor` добавляет `withCredentials: true` ко всем запросам
+3. `errorInterceptor` обрабатывает 401/403/5xx с редиректами
+4. `BroadcastChannel` синхронизирует auth-состояние между вкладками
 
-Приложение автоматически интегрируется с backend API через HTTP interceptors для:
+> [!IMPORTANT]
+> Auth-токены **никогда** не хранятся в localStorage. Вся аутентификация через HttpOnly cookies.
 
-- Аутентификации (автоматическая подстановка токенов)
-- Обработки ошибок (единый формат ошибок)
-- Логирования запросов/ответов
+## Горячие клавиши
 
-## 📚 Документация
+| Клавиша | Действие |
+|---------|----------|
+| `[` | Открыть/закрыть sidebar |
+| `Escape` | Закрыть выпадающие меню |
+| `Tab` | Навигация по sidebar-элементам |
 
-Подробная документация доступна в директории [`docs/`](./docs/):
+## Contributing
 
-- [Установка](./docs/installation.md) - Детальное руководство по настройке
-- [Использование](./docs/usage.md) - Примеры использования компонентов
-- [Архитектура](./docs/architecture/arch-rules.md) - Правила и принципы
-- [Contributing](./docs/contributing.md) - Гайд для разработчиков
+1. Следовать [архитектурным правилам](./docs/architecture/arch-rules.md)
+2. Conventional commits со скоупом: `feat(home): ...`, `fix(auth): ...`
+3. Тесты для новой функциональности
+4. Перед PR: `bun run lint && bun test`
 
-## 🤝 Contributing
+## Документация
 
-Мы приветствуем вклад в проект! Пожалуйста, ознакомьтесь с нашим [гайдом для контрибьюторов](./docs/contributing.md).
-
-### Ключевые принципы
-
-- Следовать [architectural rules](./docs/architecture/arch-rules.md)
-- Использовать conventional commits
-- Писать тесты для новой функциональности
-- Проверять код перед PR: `npm run lint && npm test`
-
-## 📄 Лицензия
-
-(Если применимо - добавить информацию о лицензии)
-
----
-
-**Happy Coding!** 🎉
-
-Если у вас есть вопросы или проблемы, создайте [issue](../../issues) в репозитории.
+| Раздел | Путь |
+|--------|------|
+| Архитектура | [`docs/architecture/`](./docs/architecture/) |
+| Гайды разработки | [`docs/guides/`](./docs/guides/) |
+| Продуктовые решения | [`docs/product/`](./docs/product/) |
+| AI-контекст | [`docs/ai-context/`](./docs/ai-context/) |

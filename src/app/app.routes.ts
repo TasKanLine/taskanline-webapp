@@ -23,15 +23,7 @@ export const routes: Routes = [
       { path: 'profile', loadComponent: () => import('./features/profile/profile').then((m) => m.Profile) },
       {
         path: 'home',
-        loadComponent: () => import('./features/home/home').then((m) => m.Home),
-        children: [
-          { path: 'calendar', redirectTo: 'issues', pathMatch: 'full' },
-          { path: 'team', redirectTo: 'issues', pathMatch: 'full' },
-          { path: 'issues', loadComponent: () => import('./features/issues/issues').then((m) => m.Issues) },
-          { path: 'issues/:id', loadComponent: () => import('./features/issues/issues').then((m) => m.Issues) },
-          { path: 'issues/:id/edit', loadComponent: () => import('./features/issues/issues').then((m) => m.Issues) },
-          { path: 'issues/new', loadComponent: () => import('./features/issues/issues').then((m) => m.Issues) },
-        ],
+        loadChildren: () => import('./features/home/home.routes').then((m) => m.HOME_ROUTES),
       },
     ],
   },
