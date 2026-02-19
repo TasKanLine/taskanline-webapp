@@ -51,9 +51,6 @@ interface NavItem {
   host: {
     '[class.w-52]': '!collapsed()',
     '[class.w-20]': 'collapsed()',
-    '[class.transition-all]': 'true',
-    '[class.duration-300]': 'true',
-    '[class.ease-in-out]': 'true',
     class:
       'h-screen shrink-0 border-r border-border-color bg-bg-secondary flex flex-col overflow-x-visible overflow-y-auto',
   },

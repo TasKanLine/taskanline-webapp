@@ -26,7 +26,16 @@ export class ThemeService {
   }
 
   toggleTheme(): void {
-    this.currentTheme.update((theme) => (theme === 'light' ? 'dark' : 'light'));
+    const next = this.currentTheme() === 'light' ? 'dark' : 'light';
+
+    const anyDoc = document as any;
+    if (typeof anyDoc.startViewTransition === 'function') {
+      anyDoc.startViewTransition(() => {
+        this.currentTheme.set(next);
+      });
+    } else {
+      this.currentTheme.set(next);
+    }
   }
 
   private applyTheme(theme: Theme): void {

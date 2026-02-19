@@ -31,8 +31,17 @@
 
   --transition-duration: 0.2s;
 
+  --motion-duration: 260ms;
+  --motion-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+
   @media (min-width: 1440.98) {
     --container-width: #{rem(1280)};
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-duration: 1ms;
   }
 }
 

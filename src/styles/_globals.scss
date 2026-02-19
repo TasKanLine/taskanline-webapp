@@ -9,6 +9,69 @@ body {
   letter-spacing: -0.03em;
 }
 
+/* 1) Убираем дефолтный fade */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+
+/* 2) Слои: старый снизу, новый сверху */
+::view-transition-old(root) {
+  z-index: 1;
+}
+::view-transition-new(root) {
+  z-index: 2;
+}
+
+/* 3) Делаем анимируемую переменную */
+@property --wipe {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: -30%;
+}
+
+/* 4) Новый кадр открываем диагональной "шторкой" */
+::view-transition-new(root) {
+  /* угол линии 30°: на практике это удобно задавать через направление градиента */
+  --wipe-angle: 210deg;
+
+  /* мягкость линии (можешь сделать 0% если хочешь прям жёсткую) */
+  --wipe-feather: 5%;
+
+  /* Маска: слева видно (чёрное), справа скрыто (прозрачное).
+     Анимируем границу --wipe. */
+  -webkit-mask-image: linear-gradient(
+    var(--wipe-angle),
+    #000 calc(var(--wipe) - var(--wipe-feather)),
+    #000 var(--wipe),
+    transparent calc(var(--wipe) + var(--wipe-feather))
+  );
+  mask-image: linear-gradient(
+    var(--wipe-angle),
+    #000 calc(var(--wipe) - var(--wipe-feather)),
+    #000 var(--wipe),
+    transparent calc(var(--wipe) + var(--wipe-feather))
+  );
+
+  animation: theme-wipe 520ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes theme-wipe {
+  from {
+    --wipe: -30%;
+  }
+  to {
+    --wipe: 130%;
+  }
+}
+
+/* 5) Уважение к reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
+
 h1,
 h2,
 h3 {
@@ -54,11 +117,4 @@ h4,
 h5,
 .h5 {
   @include fluid-text(24, 18);
-}
-
-:focus-visible {
-  outline: rem(2) dashed var(--color-primary);
-  outline-offset: rem(4);
-
-  transition-duration: 0s !important;
 }
