@@ -1,20 +1,22 @@
+@use '../../../styles/helpers' as *;
+
 .popup-menu {
   opacity: 0;
   visibility: hidden;
   transform: scale(0.95) translateY(4px);
   transform-origin: bottom left;
   transition:
-    opacity 150ms ease-out,
-    transform 150ms ease-out,
-    visibility 150ms;
+    opacity $duration-fast $ease-out,
+    transform $duration-fast $ease-out,
+    visibility $duration-fast;
 
   &--open {
     opacity: 1;
     visibility: visible;
     transform: scale(1) translateY(0);
     transition:
-      opacity 150ms ease-out,
-      transform 150ms ease-out,
+      opacity $duration-fast $ease-out,
+      transform $duration-fast $ease-out,
       visibility 0ms;
   }
 }

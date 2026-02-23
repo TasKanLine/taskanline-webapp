@@ -1,0 +1,9 @@
+// Animation duration tokens
+$duration-fast: 150ms;
+$duration-normal: 260ms;
+$duration-slow: 520ms;
+
+// Easing tokens
+// Matches --motion-ease in :root
+$ease-motion: cubic-bezier(0.2, 0.8, 0.2, 1);
+$ease-out: ease-out;

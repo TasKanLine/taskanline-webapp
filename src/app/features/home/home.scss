@@ -1,13 +1,15 @@
+@use '../../../styles/helpers' as *;
+
 .home-root {
   overflow-x: hidden;
 }
 
 .home-main {
-  transition: margin-left 300ms ease-in-out;
+  transition: margin-left $duration-normal $ease-motion;
 }
 
 .home-sidebar {
-  transition: width 300ms ease-in-out;
+  transition: width $duration-normal $ease-motion;
 }
 
 @media (max-width: 768px) {
