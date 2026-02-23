@@ -1,4 +1,4 @@
-<div class="min-h-screen bg-bg-primary text-text-primary flex flex-col relative">
+<div class="home-root min-h-screen bg-bg-primary text-text-primary flex flex-col relative">
   <div class="fixed right-5 top-5 z-20">
     <app-theme-switcher></app-theme-switcher>
   </div>
@@ -6,7 +6,7 @@
   @if (isMobile()) {
   <button
     appButton
-    class="fixed left-4 top-4 z-10 shadow-md"
+    class="fixed left-4 top-4 z-20 shadow-md"
     severity="primary"
     variant="raised"
     [rounded]="true"
@@ -17,21 +17,21 @@
     [attr.aria-controls]="'app-sidebar'"
     aria-label="Toggle sidebar"
   ></button>
-  } @if (isMobile() && !isSidebarCollapsed()) {
-  <div class="fixed inset-0 z-20" (click)="toggleSidebar()"></div>
   }
 
   <app-sidebar
     id="app-sidebar"
-    class="fixed top-0 left-0 z-30 h-full shadow-xl lg:shadow-none"
+    class="home-sidebar fixed top-0 left-0 z-30 h-full shadow-xl lg:shadow-none"
     [collapsed]="isSidebarCollapsed()"
     (toggleCollapsed)="toggleSidebar()"
-    [class.-translate-x-full]="isMobile() && isSidebarCollapsed()"
-    [class.translate-x-0]="isMobile() && !isSidebarCollapsed()"
+    [@sidebarSlide]="sidebarAnimationState()"
   ></app-sidebar>
+
   <main
-    class="flex-1 min-h-screen flex flex-col transition-[margin] duration-300 ease-in-out relative z-0"
-    [ngClass]="contentMarginClass()"
+    class="home-main flex-1 min-h-screen flex flex-col relative z-0"
+    [style.margin-left.px]="desktopMainMargin()"
+    [@contentPush]="contentAnimationState()"
+    (click)="onMainClick()"
   >
     @if (showWelcome()) {
     <div class="flex flex-col items-center justify-center pt-20 pb-10">

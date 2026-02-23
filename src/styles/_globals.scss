@@ -9,13 +9,11 @@ body {
   letter-spacing: -0.03em;
 }
 
-/* 1) Убираем дефолтный fade */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
 }
 
-/* 2) Слои: старый снизу, новый сверху */
 ::view-transition-old(root) {
   z-index: 1;
 }
@@ -23,23 +21,17 @@ body {
   z-index: 2;
 }
 
-/* 3) Делаем анимируемую переменную */
 @property --wipe {
   syntax: '<percentage>';
   inherits: false;
   initial-value: -30%;
 }
 
-/* 4) Новый кадр открываем диагональной "шторкой" */
 ::view-transition-new(root) {
-  /* угол линии 30°: на практике это удобно задавать через направление градиента */
   --wipe-angle: 210deg;
 
-  /* мягкость линии (можешь сделать 0% если хочешь прям жёсткую) */
   --wipe-feather: 5%;
 
-  /* Маска: слева видно (чёрное), справа скрыто (прозрачное).
-     Анимируем границу --wipe. */
   -webkit-mask-image: linear-gradient(
     var(--wipe-angle),
     #000 calc(var(--wipe) - var(--wipe-feather)),
@@ -65,7 +57,6 @@ body {
   }
 }
 
-/* 5) Уважение к reduce motion */
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-new(root) {
     animation: none;

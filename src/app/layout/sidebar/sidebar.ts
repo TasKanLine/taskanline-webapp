@@ -51,12 +51,10 @@ interface NavItem {
   host: {
     '[class.w-52]': '!collapsed()',
     '[class.w-20]': 'collapsed()',
-    class:
-      'h-screen shrink-0 border-r border-border-color bg-bg-secondary flex flex-col overflow-x-visible overflow-y-auto',
+    class: 'h-screen shrink-0 border-r border-border-color bg-bg-secondary flex flex-col overflow-visible',
   },
 })
 export class Sidebar implements OnInit {
-  // --- Новая логика (Inputs/Outputs) ---
   collapsed = input.required<boolean>();
   toggleCollapsed = output<void>();
 
@@ -114,6 +112,7 @@ export class Sidebar implements OnInit {
   menuLabel = computed(() => this.displayName() || 'User menu');
 
   menuOpen = signal(false);
+  menuVisible = signal(false);
   collapseLabel = computed(() => (this.collapsed() ? 'Expand sidebar' : 'Collapse sidebar'));
   collapseTitle = computed(() => `${this.collapseLabel()} (Shortcut: [)`);
 
@@ -127,18 +126,22 @@ export class Sidebar implements OnInit {
 
     effect(() => {
       const open = this.menuOpen();
-      setTimeout(() => {
-        if (open) {
-          this.updateMenuPosition();
+      if (open) {
+        this.updateMenuPosition();
+        requestAnimationFrame(() => {
+          this.menuVisible.set(true);
           const panel = this.menuPanel?.nativeElement;
           const first = panel?.querySelector<HTMLElement>(
             '[role="menuitem"], button, a, [tabindex]:not([tabindex="-1"])',
           );
           first?.focus();
-        } else if (this.wasMenuOpen) {
+        });
+      } else {
+        this.menuVisible.set(false);
+        if (this.wasMenuOpen) {
           this.menuButton?.nativeElement.focus();
         }
-      });
+      }
       this.wasMenuOpen = open;
     });
 
@@ -154,6 +157,7 @@ export class Sidebar implements OnInit {
       const collapsed = this.collapsed();
       if (collapsed !== this.lastCollapsed) {
         this.lastCollapsed = collapsed;
+        this.hostRef.nativeElement.scrollLeft = 0;
         if (this.menuOpen()) {
           this.menuOpen.set(false);
         }
@@ -174,7 +178,6 @@ export class Sidebar implements OnInit {
     this.store.dispatch(AuthActions.logout());
   }
 
-  // Новый метод для клика по кнопке коллапса
   onCollapseClick(): void {
     this.toggleCollapsed.emit();
   }
@@ -255,6 +258,8 @@ export class Sidebar implements OnInit {
   }
 
   private updateMenuPosition(): void {
+    this.hostRef.nativeElement.scrollLeft = 0;
+
     const button = this.menuButton?.nativeElement;
     if (!button) {
       return;
@@ -270,7 +275,7 @@ export class Sidebar implements OnInit {
 
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
-    const baseLeft = this.collapsed() ? hostRect.right + gap : rect.left;
+    const baseLeft = hostRect.right + gap;
     const clampedLeft = Math.min(Math.max(baseLeft, gap), viewportWidth - panelWidth - gap);
 
     const spaceAbove = rect.top;

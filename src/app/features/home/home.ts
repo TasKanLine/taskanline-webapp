@@ -1,20 +1,38 @@
 import { ChangeDetectionStrategy, Component, HostListener, computed, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { filter, map, startWith } from 'rxjs';
 import { Sidebar } from '@layout/sidebar/sidebar';
 import { ThemeSwitcher } from '@shared/ui/theme-switcher/theme-switcher';
 import { Button } from '@shared/ui/button/button';
-import { Menu, X } from 'lucide-angular';
+import { Menu } from 'lucide-angular';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [Sidebar, ThemeSwitcher, RouterOutlet, CommonModule, Button],
+  imports: [Sidebar, ThemeSwitcher, RouterOutlet, Button],
   templateUrl: './home.html',
   styleUrl: './home.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('sidebarSlide', [
+      state('mobileClosed', style({ transform: 'translateX(-208px)' })),
+      state('mobileOpen', style({ transform: 'translateX(0)' })),
+      state('desktop', style({ transform: 'none' })),
+      transition('mobileClosed <=> mobileOpen', animate('300ms ease-in-out')),
+      transition('* => desktop', animate('0ms')),
+      transition('desktop => *', animate('0ms')),
+    ]),
+    trigger('contentPush', [
+      state('mobileClosed', style({ transform: 'translateX(0)' })),
+      state('mobileOpen', style({ transform: 'translateX(208px)' })),
+      state('desktop', style({ transform: 'none' })),
+      transition('mobileClosed <=> mobileOpen', animate('300ms ease-in-out')),
+      transition('* => desktop', animate('0ms')),
+      transition('desktop => *', animate('0ms')),
+    ]),
+  ],
 })
 export class Home {
   private router = inject(Router);
@@ -36,12 +54,25 @@ export class Home {
 
   showWelcome = computed(() => this.currentUrl() === '/home');
 
-  contentMarginClass = computed(() => {
-    const width = this.screenWidth();
-    if (width <= 768) {
-      return 'ml-0';
+  desktopMainMargin = computed(() => {
+    if (this.isMobile()) {
+      return 0;
     }
-    return this.isSidebarCollapsed() ? 'ml-20' : 'ml-52';
+    return this.isSidebarCollapsed() ? 80 : 208;
+  });
+
+  sidebarAnimationState = computed(() => {
+    if (!this.isMobile()) {
+      return 'desktop';
+    }
+    return this.isSidebarCollapsed() ? 'mobileClosed' : 'mobileOpen';
+  });
+
+  contentAnimationState = computed(() => {
+    if (!this.isMobile()) {
+      return 'desktop';
+    }
+    return this.isSidebarCollapsed() ? 'mobileClosed' : 'mobileOpen';
   });
 
   @HostListener('window:resize')
@@ -67,9 +98,14 @@ export class Home {
     this.isSidebarCollapsed.update((v) => !v);
   }
 
+  onMainClick(): void {
+    if (this.isMobile() && !this.isSidebarCollapsed()) {
+      this.toggleSidebar();
+    }
+  }
+
   readonly Icons = {
     Menu,
-    X,
   };
 
   private isEditableTarget(target: EventTarget | null): boolean {

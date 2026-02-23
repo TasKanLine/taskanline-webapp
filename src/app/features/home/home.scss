@@ -1,0 +1,25 @@
+.home-root {
+  overflow-x: hidden;
+}
+
+.home-main {
+  transition: margin-left 300ms ease-in-out;
+}
+
+.home-sidebar {
+  transition: width 300ms ease-in-out;
+}
+
+@media (max-width: 768px) {
+  .home-sidebar {
+    width: 208px;
+    min-width: 208px;
+    max-width: 208px;
+    will-change: transform;
+  }
+
+  .home-main {
+    margin-left: 0 !important;
+    will-change: transform;
+  }
+}

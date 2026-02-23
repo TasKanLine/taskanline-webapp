@@ -1,4 +1,4 @@
-<div class="flex w-full h-full flex-col gap-6 px-4 py-6">
+<div class="flex w-full h-full flex-col gap-6 px-4 py-6 overflow-x-visible overflow-y-auto">
   <div class="flex items-center gap-3 overflow-hidden whitespace-nowrap">
     <div
       class="size-9 shrink-0 rounded-xl bg-[var(--color-primary)]/15 text-[var(--color-primary)] flex items-center justify-center font-semibold"
@@ -61,14 +61,16 @@
       }
     </button>
 
-    @if (menuOpen()) {
     <div
       #menuPanel
-      class="fixed rounded-xl border border-border-color bg-bg-secondary/95 shadow-lg backdrop-blur z-50"
+      class="popup-menu fixed rounded-xl border border-border-color bg-bg-secondary/95 shadow-lg backdrop-blur z-50"
+      [class.popup-menu--open]="menuVisible()"
       [attr.id]="menuId"
       [style.top.px]="menuPosition()?.top"
       [style.left.px]="menuPosition()?.left"
       [style.minWidth.px]="menuPosition()?.minWidth"
+      [attr.aria-hidden]="!menuOpen()"
+      [attr.inert]="menuOpen() ? null : true"
       role="menu"
     >
       <button
@@ -97,7 +99,6 @@
         Logout
       </button>
     </div>
-    }
   </div>
   }
 
